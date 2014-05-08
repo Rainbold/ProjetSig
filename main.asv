@@ -576,7 +576,7 @@ Fs3 = ecg_n3.Fs;
 
 figure(1);
 
-s = 10; % s seconds of samples
+s = 4; % s seconds of samples
 ratio = 30; % percent used to detect peak
 ratio_deviation = 1/12; % Fs * ratio_deviation : maximum deviation in point, to detect Q and S from R
 
@@ -588,13 +588,13 @@ N = Fs1 * s;
 
 plot((0:N-1)/Fs1, ecg_n1.ecg(1:N));
 hold on;
-plot((Q-1)/Fs1, ecg_n1.ecg(Q),'+g');
-plot((R-1)/Fs1, ecg_n1.ecg(R),'+r');
-plot((S-1)/Fs1, ecg_n1.ecg(S),'+y');
+plot(Q/Fs1, ecg_n1.ecg(Q),'+g');
+plot(R/Fs1, ecg_n1.ecg(R),'+r');
+plot(S/Fs1, ecg_n1.ecg(S),'+y');
 title('Time evolution of normal ECG signal (1)');
 xlabel('Time (s)');
 ylabel('Amplitude');
-text(Q(1)/Fs1,ecg_n1.ecg(Q(1))*1.1,'Q'), text(R(1)/Fs1,ecg_n1.ecg(R(1))*1.03,'R'), text(S(1)/Fs1,ecg_n1.ecg(S(1))*1.1,'S')
+text(Q(1),ecg_n1.ecg(Q(1))*1.1,'Q'), text(R(1),ecg_n1.ecg(R(1))*1.03,'R'), text(S(1),ecg_n1.ecg(S(1))*1.1,'S')
 
 % ECG 2
 subplot 312
@@ -604,13 +604,13 @@ N = Fs2 * s;
 
 plot((0:N-1)/Fs2, ecg_n2.ecg(1:N))
 hold on;
-plot((Q-1)/Fs2, ecg_n2.ecg(Q),'+g');
-plot((R-1)/Fs2, ecg_n2.ecg(R),'+r');
-plot((S-1)/Fs2, ecg_n2.ecg(S),'+y');
+plot(Q/Fs2, ecg_n2.ecg(Q),'+g');
+plot(R/Fs2, ecg_n2.ecg(R),'+r');
+plot(S/Fs2, ecg_n2.ecg(S),'+y');
 title('Time evolution of normal ECG signal (2)');
 xlabel('Time (s)');
 ylabel('Amplitude');
-text(Q(1)/Fs2,ecg_n2.ecg(Q(1))*1.1,'Q'), text(R(1)/Fs2,ecg_n2.ecg(R(1))*1.03,'R'), text(S(1)/Fs2,ecg_n2.ecg(S(1))*1.1,'S')
+text(Q(1),ecg_n2.ecg(Q(1))*1.1,'Q'), text(R(1),ecg_n2.ecg(R(1))*1.03,'R'), text(S(1),ecg_n2.ecg(S(1))*1.1,'S')
 
 % ECG 3
 subplot 313
@@ -620,13 +620,13 @@ N = Fs3 * s;
 
 plot((0:N-1)/Fs3, ecg_n3.ecg(1:N))
 hold on;
-plot((Q-1)/Fs3, ecg_n3.ecg(Q),'+g');
-plot((R-1)/Fs3, ecg_n3.ecg(R),'+r');
-plot((S-1)/Fs3, ecg_n3.ecg(S),'+y');
+plot(Q/Fs3, ecg_n3.ecg(Q),'+g');
+plot(R/Fs3, ecg_n3.ecg(R),'+r');
+plot(S/Fs3, ecg_n3.ecg(S),'+y');
 title('Time evolution of normal ECG signal (3)');
 xlabel('Time (s)');
 ylabel('Amplitude');
-text(Q(1)/Fs3,ecg_n3.ecg(Q(1))*1.1,'Q'), text(R(1)/Fs3,ecg_n3.ecg(R(1))*1.03,'R'), text(S(1)/Fs3,ecg_n3.ecg(S(1))*1.1,'S')
+text(Q(1),ecg_n3.ecg(Q(1))*1.1,'Q'), text(R(1),ecg_n3.ecg(R(1))*1.03,'R'), text(S(1),ecg_n3.ecg(S(1))*1.1,'S')
 
 
 
