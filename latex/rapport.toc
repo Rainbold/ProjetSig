@@ -1,0 +1,6 @@
+\contentsline {chapter}{\numberline {1}ECG visualization}{3}
+\contentsline {section}{\numberline {1.1}Time display}{3}
+\contentsline {section}{\numberline {1.2}Frequency display}{5}
+\contentsline {chapter}{\numberline {2}Detection of P, QRS and T waves}{6}
+\contentsline {chapter}{\numberline {3}Automatic identification of cardiac pathologies}{7}
+\contentsline {chapter}{\numberline {4}ECG denoising}{8}
