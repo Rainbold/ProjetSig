@@ -1,9 +1,40 @@
 Notes:
 	3.1.1
-		Chaque échantillon représente des 
+		Le premier signal est le plus bruité des trois, mais les points QRS et les ondes P et T sont les plus visibles.
+		Le second signal est plus épuré que le premier, mais le point S n'est pas très marqué.
+		Les ondes P et T du troisième signal sont quasiment confondues et difficilement différenciables. Le signal est également légèrement bruité.
 
 		On mesure le nombre de points x en moyenne entre chaque pic R.
 		On transforme cette moyenne en bmp -> R
 			1. x = 235,4  R = 91,7
 			2. x = 407,5  R = 53,0
 			3. x = 250    R = 86,4
+
+		Les signaux les plus bruités sont ceux où le coeur bat le plus vite.
+		On remarque également que la puissance du battement est plus forte lorsque le coeur bat plus lentement.
+		Le deuxième signal représente un rythme cardiaque assez faible. Cependant cela peut s'expliquer si la personne fait du sport.
+
+	3.1.2
+		1. Il y a une absence de P waves. les impulsions sont faibles.
+		2. Il est difficile de discerner les points Q et S. De même que les P waves.
+		3. Groupements de battements cardiaques. Absence de points Q et de P waves.
+		4. 
+
+		Estimation du rythme cardiaque:
+			1. x = 195,5  R = 76,7
+			2. x = 272,6  R = 55,5
+			3. x = 255    R = 84,7
+			4. x = 303,75 R = 71,1
+
+	3.2.1
+		Rythme cardiaque d'après le spectre de puissance (ECG normaux)
+			1. R = 91,8 bpm
+			2. R = 52,2 bpm
+			3. R = 81,9 bpm
+
+	3.2.2
+		Rythme cardiaque d'après le spectre de puissance (ECG pathologies)
+			1. R = 76,8 bpm
+			2. R = 57,6 bpm
+			3. R = 82,8 bpm
+			4. R = 72 bpm
