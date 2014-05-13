@@ -1,6 +1,10 @@
 \contentsline {chapter}{\numberline {1}ECG visualization}{3}
 \contentsline {section}{\numberline {1.1}Time display}{3}
 \contentsline {section}{\numberline {1.2}Frequency display}{5}
-\contentsline {chapter}{\numberline {2}Detection of P, QRS and T waves}{6}
-\contentsline {chapter}{\numberline {3}Automatic identification of cardiac pathologies}{7}
-\contentsline {chapter}{\numberline {4}ECG denoising}{8}
+\contentsline {chapter}{\numberline {2}Detection of P, QRS and T waves}{7}
+\contentsline {section}{\numberline {2.1}Three different methods of R waves detection}{7}
+\contentsline {subsection}{\numberline {2.1.1}Method of local maxima}{7}
+\contentsline {subsection}{\numberline {2.1.2}Method of the derivative}{7}
+\contentsline {subsection}{\numberline {2.1.3}Pan and Tompkins algorithm}{7}
+\contentsline {chapter}{\numberline {3}Automatic identification of cardiac pathologies}{8}
+\contentsline {chapter}{\numberline {4}ECG denoising}{9}
