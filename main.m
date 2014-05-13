@@ -86,7 +86,7 @@ subplot 311
 N = Fs1 * s;
 dsp_ecg_n1 = abs(fft(ecg_n1.ecg(1:N))) .^ 2;
 plot(((0:N-1)/N-0.5)*Fs1, fftshift(dsp_ecg_n1));
-xlim([-Fs1/2,Fs1/2]);
+xlim([-50,50]);
 
 title('Power spectrum of normal ECG signal (1)');
 xlabel('Frequency (Hz)');
@@ -97,7 +97,7 @@ subplot 312
 N = Fs2 * s; % 4s
 dsp_ecg_n2 = abs(fft(ecg_n2.ecg(1:N))) .^ 2;
 plot(((0:N-1)/N-0.5)*Fs2, fftshift(dsp_ecg_n2));
-xlim([-Fs2/2,Fs2/2]);
+xlim([-50,50]);
 
 title('Power spectrum of normal ECG signal (2)');
 xlabel('Frequency (Hz)');
@@ -108,7 +108,7 @@ subplot 313
 N = Fs3 * s; % 4s
 dsp_ecg_n3 = abs(fft(ecg_n3.ecg(1:N))) .^ 2;
 plot(((0:N-1)/N-0.5)*Fs3, fftshift(dsp_ecg_n3));
-xlim([-Fs3/2,Fs3/2]);
+xlim([-50,50]);
 
 title('Power spectrum of normal ECG signal (3)');
 xlabel('Frequency (Hz)');
@@ -119,7 +119,7 @@ s = 50; % Use S seconds of samples
 
 
 % ECG with AF
-subplot 411
+subplot 221
 N = Fs_AF * s;
 dsp_ecg_AF = abs(fft(ecg_AF.ecg(1:N))) .^ 2;
 plot(((0:N-1)/N-0.5)*Fs_AF, fftshift(dsp_ecg_AF));
@@ -131,7 +131,7 @@ xlabel('Frequency (Hz)');
 ylabel('Amplitude');
 
 % ECG with VF
-subplot 412
+subplot 222
 N = Fs_VF * s; % 4s
 dsp_ecg_VF = abs(fft(ecg_VF.ecg(1:N))) .^ 2;
 plot(((0:N-1)/N-0.5)*Fs_VF, fftshift(dsp_ecg_VF));
@@ -142,7 +142,7 @@ title('Power spectrum of ECG signal with VF');
 xlabel('Frequency (Hz)');
 ylabel('Amplitude');
 
-subplot 413
+subplot 223
 N = Fs_SSS * s; % 4s
 dsp_ecg_SSS = abs(fft(ecg_SSS.ecg(1:N))) .^ 2;
 plot(((0:N-1)/N-0.5)*Fs_SSS, fftshift(dsp_ecg_SSS));
@@ -153,7 +153,7 @@ title('Power spectrum of ECG signal with SSS');
 xlabel('Frequency (Hz)');
 ylabel('Amplitude');
 
-subplot 414
+subplot 224
 N = Fs_PVC * s; % 4s
 dsp_ecg_PVC = abs(fft(ecg_PVC.ecg(1:N))) .^ 2;
 plot(((0:N-1)/N-0.5)*Fs_PVC, fftshift(dsp_ecg_PVC));
@@ -664,18 +664,18 @@ ratio = 40;
 
 [pks,R] = DerivMeth(ecg_n1.ecg(1:N), ratio, Fs1);
 
-R1 = R(1)
-R2 = R(2)
+R1 = R(2)
+R2 = R(3)
 
 E = R2 - R1
 N = floor(E * 0.7)
 
 data = ecg_n1.ecg(R1+Fs1/20:N+R1);
 
-y = filter(B_g1, A_g1, data);
-y = y(7:end);
-y1 = filter(B_g2, A_g2, y);
-
+y = filter(B_g2, A_g2, data);
+y = y(9:end);
+y1 = filter(B_g1, A_g1, y);
+y1 = y1(7:end);
 figure(3);
 subplot 211
 plot(y1);
@@ -694,24 +694,21 @@ ylabel('Amplitude')
 %% Detection of the T waves
 figure(1);
 
-subplot 311
-plot(data);
-
 subplot 312
-plot(y);
+plot((0:length(y)-1),y);
 
 subplot 313
-plot(y1);
+plot((0:length(y1)-1),y1);
 hold on
 
 d = [y1, 1:length(y1)];
 [M, idM] = max(d, [], 2);
 [m, idm] = min(d, [], 2);
-plot(idM, M, 'r+');
-plot(idm, m, 'r+');
+plot(idM-1, M, 'r+');
+plot(idm-1, m, 'r+');
 
 p = y1(idM:idm);
-plot([idM:idm],p, 'r');
+plot((idM-1:idm-1),p, 'r');
 
 %find zero crossings
 t1=p(1:end-1);
@@ -719,7 +716,55 @@ t2=p(2:end);
 tt=t1.*t2;
 indx=find(tt<0);
 
-plot(indx+idM-1, p(indx),'+g');
+plot(indx+idM-2, p(indx),'+g');
+N = length(data)
+
+gd = 6;
+
+subplot 311
+plot((0:N-1),data);
+hold on
+plot(indx+idM +gd -1, data(indx+idM+gd), '+g');
+%% P
+
+figure(1);
+subplot 411
+    plot((0:999), ecg_n1.ecg(1:1000));
+hold on
+
+N = floor(E * 0.7)
+data = ecg_n1.ecg(N+R1:R2-Fs1/20);
+
+    plot((N-1+R1):(R2-1-Fs1/20), data, 'r');
+    subplot 412
+    plot((0:length(data)-1), data);
+y = filter(B_g1, A_g1, data)
+y = y(9:end);
+    subplot 413
+    plot((0:length(y)-1),y);
+y1 = filter(B_g2, A_g2, y);
+y1 = y1(7:end);
+    subplot 414
+    plot((0:(length(y1)-1)),y1);
+d = [y1, 1:length(y1)];
+[M, idM] = max(d, [], 2);
+[m, idm] = min(d, [], 2);
+p = y1(idM:idm);
+    subplot 414
+
+%find zero crossings
+t1=p(1:end-1);
+t2=p(2:end);
+tt=t1.*t2;
+indx=find(tt<0);
+gd = 5;
+
+figure(2);
+plot((0:length(data)-1),data);
+hold on
+plot(indx+idM +gd -1, data(indx+idM+gd), '+g');
+
+
 %%
 clear all;
 
@@ -731,28 +776,74 @@ Fs1 = ecg_n1.Fs;
 Fs2 = ecg_n2.Fs;
 Fs3 = ecg_n3.Fs;
 
-S = 4;
-ratio = 40;
-ratio_d = 1/12; % Fs * ratio_deviation : maximum deviation in point, to detect Q and S from R
+s = 4; % S seconds of samples
 
-N = S * Fs1;
+% ECG 1
+subplot 311
+N = Fs1 * s;
 
-[ P, Q, R, S, T ] = PQRST(ecg_n1.ecg(1:N), ratio, ratio_d, Fs1);
+[ P, Q, R, S, T ] = PQRST(ecg_n1.ecg(1:N), Fs1);
 
-figure(1);
 plot((0:N-1)/Fs1, ecg_n1.ecg(1:N));
 hold on;
-
-%plot((P-1)/Fs1, ecg_n1.ecg(Q),'+g');
+plot((P-1)/Fs1, ecg_n1.ecg(P),'+y');
 plot((Q-1)/Fs1, ecg_n1.ecg(Q),'+g');
 plot((R-1)/Fs1, ecg_n1.ecg(R),'+r');
 plot((S-1)/Fs1, ecg_n1.ecg(S),'+k');
 plot((T-1)/Fs1, ecg_n1.ecg(T),'+r');
 
+title('Time evolution of normal ECG signal (1)');
+xlabel('Time (s)');
+ylabel('Amplitude');
+text(P(1)/Fs1,ecg_n1.ecg(P(1))*5,'P');
+text(Q(1)/Fs1,ecg_n1.ecg(Q(1))*1.5,'Q');
+text(R(1)/Fs1,ecg_n1.ecg(R(1))*1.1,'R');
+text(S(1)/Fs1,ecg_n1.ecg(S(1))*1.4,'S');
+text(T(1)/Fs1,ecg_n1.ecg(T(1))*1.5,'T');
 
+% ECG 1
+subplot 312
+N = Fs2 * s;
 
+[ P, Q, R, S, T ] = PQRST(ecg_n2.ecg(1:N), Fs2);
 
+plot((0:N-1)/Fs2, ecg_n2.ecg(1:N));
+hold on;
+plot((P-1)/Fs2, ecg_n2.ecg(P),'+y');
+plot((Q-1)/Fs2, ecg_n2.ecg(Q),'+g');
+plot((R-1)/Fs2, ecg_n2.ecg(R),'+r');
+plot((S-1)/Fs2, ecg_n2.ecg(S),'+k');
+plot((T-1)/Fs2, ecg_n2.ecg(T),'+r');
 
+title('Time evolution of normal ECG signal (1)');
+xlabel('Time (s)');
+ylabel('Amplitude');
+text(P(1)/Fs2,ecg_n2.ecg(P(1))*5,'P');
+text(Q(1)/Fs2,ecg_n2.ecg(Q(1))*1.5,'Q');
+text(R(1)/Fs2,ecg_n2.ecg(R(1))*1.1,'R');
+text(S(1)/Fs2,ecg_n2.ecg(S(1))*1.4,'S');
+text(T(1)/Fs2,ecg_n2.ecg(T(1))*1.5,'T');
 
+% ECG 3
+subplot 313
+N = Fs3 * s;
+offset = Fs3 * 2;
 
+[ P, Q, R, S, T ] = PQRST(ecg_n3.ecg(1+offset:N+offset), Fs3);
 
+plot((0+offset:N-1+offset)/Fs3, ecg_n3.ecg(1+offset:N+offset));
+hold on;
+plot((P-1+offset)/Fs3, ecg_n3.ecg(P+offset),'+y');
+plot((Q-1+offset)/Fs3, ecg_n3.ecg(Q+offset),'+g');
+plot((R-1+offset)/Fs3, ecg_n3.ecg(R+offset),'+r');
+plot((S-1+offset)/Fs3, ecg_n3.ecg(S+offset),'+k');
+plot((T-1+offset)/Fs3, ecg_n3.ecg(T+offset),'+r');
+
+title('Time evolution of normal ECG signal (1)');
+xlabel('Time (s)');
+ylabel('Amplitude');
+text((P(1)+offset)/Fs3,ecg_n3.ecg(P(2)+offset)*-10,'P');
+text((Q(1)+offset-40)/Fs3,ecg_n3.ecg(Q(2)+offset)*1.5,'Q');
+text((R(1)+offset)/Fs3,ecg_n3.ecg(R(2)+offset)*1.1,'R');
+text((S(1)+offset+10)/Fs3,ecg_n3.ecg(S(2)+offset)*0.8,'S');
+text((T(1)+offset)/Fs3,ecg_n3.ecg(T(2)+offset)*1.5,'T');
