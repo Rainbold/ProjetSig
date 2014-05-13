@@ -1,10 +1,10 @@
-function [ Q, R, S ] = QRS(ecg, ratio, max_d)
+function [ Q, R, S ] = QRS(ecg, ratio, ratio_d, Fs)
     Q = [];
-    R = [];
     S = [];
-
+    max_d = Fs * ratio_d;
+    
     % R
-    [pks,R] = DerivMeth(ecg, ratio);
+    [pks,R] = DerivMeth(ecg, ratio, Fs);
 
     d = diff(ecg);
     for i=1:length(R)

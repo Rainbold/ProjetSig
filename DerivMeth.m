@@ -1,9 +1,9 @@
-function [peaks, location] = DerivMeth(ecg, ratio)
+function [peaks, location] = DerivMeth(ecg, ratio, Fs)
     
     ecg_d = diff(ecg);
 
-    [pksM,locsM] = FindPeaks(ecg_d, ratio); % locate the local maximas
-    [pksm,locsm] = FindPeaks(-1*ecg_d, ratio); % locate the local minimas
+    [pksM,locsM] = FindPeaks(ecg_d, ratio, Fs); % locate the local maximas
+    [pksm,locsm] = FindPeaks(-1*ecg_d, ratio, Fs); % locate the local minimas
     pksm = -1 * pksm;
 
 %     figure(9);
@@ -14,6 +14,7 @@ function [peaks, location] = DerivMeth(ecg, ratio)
 %     title('Time evolution of the differential of an ECG signal');
 %     legend('Diff(ecg)','Maxima','Minima');
 %     xlabel('Time (s)'); ylabel('Amplitude');
+%     figure(1);
 
     x = [locsm locsM]; % groups the locations
     x = sort(x); % and sort them
