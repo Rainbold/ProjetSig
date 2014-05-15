@@ -725,7 +725,7 @@ subplot 311
 plot((0:N-1),data);
 hold on
 plot(indx+idM +gd -1, data(indx+idM+gd), '+g');
-%% P
+%% P wave
 
 figure(1);
 subplot 411
@@ -765,7 +765,7 @@ hold on
 plot(indx+idM +gd -1, data(indx+idM+gd), '+g');
 
 
-%%
+%% PQRST display of the 3 normal ECG signals
 clear all;
 
 ecg_n1 = load('ecg/ecg_normal_1.mat');
@@ -776,7 +776,7 @@ Fs1 = ecg_n1.Fs;
 Fs2 = ecg_n2.Fs;
 Fs3 = ecg_n3.Fs;
 
-s = 4; % S seconds of samples
+s = 50; % S seconds of samples
 
 % ECG 1
 subplot 311
@@ -847,3 +847,73 @@ text((Q(1)+offset-40)/Fs3,ecg_n3.ecg(Q(2)+offset)*1.5,'Q');
 text((R(1)+offset)/Fs3,ecg_n3.ecg(R(2)+offset)*1.1,'R');
 text((S(1)+offset+10)/Fs3,ecg_n3.ecg(S(2)+offset)*0.8,'S');
 text((T(1)+offset)/Fs3,ecg_n3.ecg(T(2)+offset)*1.5,'T');
+
+%% 5 Automatic identification of cardiac pathologies
+%% 5.1 Tachycardia / Bradycardia
+clear all;
+
+ecg_n1 = load('ecg/ecg_normal_1.mat');
+ecg_n2 = load('ecg/ecg_normal_2.mat');
+ecg_n3 = load('ecg/ecg_normal_3.mat');
+ecg_AF = load('ecg/ecg_AF.mat');
+ecg_VF = load('ecg/ecg_VF.mat');
+ecg_SSS = load('ecg/ecg_SSS.mat');
+ecg_PVC = load('ecg/ecg_PVC.mat');
+
+Fs1 = ecg_n1.Fs;
+Fs2 = ecg_n2.Fs;
+Fs3 = ecg_n3.Fs;
+Fs_AF = ecg_AF.Fs;
+Fs_VF = ecg_VF.Fs;
+Fs_SSS = ecg_SSS.Fs;
+Fs_PVC = ecg_PVC.Fs;
+
+N = 20 * Fs1;
+CardiacRhythm(ecg_n3.ecg(1:N), Fs3)
+
+% [ T1, B1 ] = FindPathologies(ecg_n1.ecg(1:N), Fs1)
+% [ T2, B2 ] = FindPathologies(ecg_n2.ecg(1:N), Fs1)
+% [ T3, B3 ] = FindPathologies(ecg_n3.ecg(1:N), Fs1)
+% 
+% [ T_AF, B_AF ] = FindPathologies(ecg_AF.ecg(1:N), Fs1)
+% [ T_VF, B_VF ] = FindPathologies(ecg_VF.ecg(1:N), Fs1)
+% [ T_SSS, B_SSS ] = FindPathologies(ecg_SSS.ecg(1:N), Fs1)
+% [ T_PVC, B_PCV ] = FindPathologies(ecg_PVC.ecg(1:N), Fs1)
+
+
+ratio = 40;
+ratio_d = 1/12; % Fs * ratio_deviation : maximum deviation in point, to detect Q and S from R
+% Q R S
+N = 10 * Fs1;
+[ Q, R, S ] = QRS(ecg_n1.ecg(1:N), ratio, ratio_d, Fs1);
+N = length(R) - 1;
+Ds = diff(R);
+Dbpm = (60 * Fs1) * Ds.^-1;
+subplot 211
+plot((0:N-1), Ds, '+-');
+subplot 212
+plot((0:N-1), Dbpm, '+r-');
+
+figure(2)s
+% Q R S
+N = 10 * Fs_SSS;
+[ Q, R, S ] = QRS(ecg_SSS.ecg(1:N), 45, ratio_d, Fs_SSS);
+N = length(R) - 1;w
+Ds = diff(R);
+Dbpm = (60 * Fs_SSS) * Ds.^-1;
+subplot 211
+plot((0:N-1), Ds, '+-');
+subplot 212
+plot((0:N-1), Dbpm, '+r-');
+
+
+
+
+
+
+
+
+
+
+
+
