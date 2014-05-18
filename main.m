@@ -197,7 +197,7 @@ plot((0:N-1)/Fs1, ecg1P3(1:N));
 hold on
 plot((locs-1)/Fs1, pks,'+r');
 
-title('Time evolution of a normal ECG signal by the power of 3');
+title('Time evolution of a normal ECG signal by the power of 3 (1)');
 legend('ECG signal','R waves');
 xlabel('Time (s)'); ylabel('Amplitude');
 
@@ -210,7 +210,7 @@ plot((0:N-1)/Fs2, ecg2P3(1:N));
 hold on
 plot((locs-1)/Fs2, pks,'+r');
 
-title('Time evolution of a normal ECG signal by the power of 3');
+title('Time evolution of a normal ECG signal by the power of 3 (2)');
 legend('ECG signal','R waves');
 xlabel('Time (s)'); ylabel('Amplitude');
 
@@ -223,7 +223,7 @@ plot((0:N-1)/Fs3, ecg3P3(1:N));
 hold on
 plot((locs-1)/Fs3, pks,'+r');
 
-title('Time evolution of a normal ECG signal by the power of 3');
+title('Time evolution of a normal ECG signal by the power of 3 (3)');
 legend('ECG signal','R waves');
 xlabel('Time (s)'); ylabel('Amplitude');
 
@@ -233,11 +233,12 @@ clear ecg3P3;
 clear locs;
 clear pks;
 clear N;
-clear S;
+clear s;
 clear ratio;
 %% Method of the derivation
 s = 4; % seconds of samples
 ratio = 70; % percent used to detect peaks
+close all;
 
 figure(1);
 
@@ -281,13 +282,13 @@ legend('ECG signal','R waves');
 xlabel('Time (s)'); ylabel('Amplitude');
 
 clear N;
-clear S;
+clear s;
 clear locs;
 clear pks;
 clear ratio;
 %% Pan and Tompkins algorithm
 %% A)
-clear all;
+clear all; close all;
 ecg_n1 = load('ecg/ecg_normal_1.mat');
 Fs1 = ecg_n1.Fs;
 
@@ -379,7 +380,7 @@ clear A_lp B_lp;
 %% B)
 
 B = [ 1 2 0 -2 -1 ] * Fs1 / 8;
-A = [ 1 ];
+A = 1;
 
 figure(1);
 freqz(B,A, 10000);
@@ -589,7 +590,7 @@ ratio_deviation = 1/12; % Fs * ratio_deviation : maximum deviation in point, to 
 subplot 311
 N = Fs1 * s;
 
-[Q, R, S] = QRS(ecg_n1.ecg(1:N), ratio, ratio_deviation, Fs1);
+[Q, R, S] = QRS(2, ecg_n1.ecg(1:N), Fs1, ratio, ratio_deviation);
 
 plot((0:N-1)/Fs1, ecg_n1.ecg(1:N));
 hold on;
@@ -605,7 +606,7 @@ text(Q(1)/Fs1,ecg_n1.ecg(Q(1))*1.1,'Q'), text(R(1)/Fs1,ecg_n1.ecg(R(1))*1.03,'R'
 subplot 312
 N = Fs2 * s;
 
-[Q, R, S] = QRS(ecg_n2.ecg(1:N), ratio, ratio_deviation, Fs2);
+[Q, R, S] = QRS(2, ecg_n2.ecg(1:N), Fs2, ratio, ratio_deviation);
 
 plot((0:N-1)/Fs2, ecg_n2.ecg(1:N))
 hold on;
@@ -621,7 +622,7 @@ text(Q(1)/Fs2,ecg_n2.ecg(Q(1))*1.1,'Q'), text(R(1)/Fs2,ecg_n2.ecg(R(1))*1.03,'R'
 subplot 313
 N = Fs3 * s;
 
-[Q, R, S] = QRS(ecg_n3.ecg(1:N), ratio, ratio_deviation, Fs3);
+[Q, R, S] = QRS(2, ecg_n3.ecg(1:N), Fs3, ratio, ratio_deviation);
 
 plot((0:N-1)/Fs3, ecg_n3.ecg(1:N))
 hold on;
@@ -639,11 +640,9 @@ clear all;
 ecg_n1 = load('ecg/ecg_normal_1.mat');
 Fs1 = ecg_n1.Fs;
 
-N = 1000;
-
 % Differiator
 B_g1 = [ 1 0 0 0 0 0 -1 ];
-A_g1 = [ 1 ];
+A_g1 = 1;
 
 figure(1);
 freqz(B_g1, A_g1);
@@ -662,13 +661,13 @@ S = 4;
 N = S * Fs1;
 ratio = 40;
 
-[pks,R] = DerivMeth(ecg_n1.ecg(1:N), ratio, Fs1);
+[~,R] = DerivMeth(ecg_n1.ecg(1:N), ratio, Fs1);
 
-R1 = R(2)
-R2 = R(3)
+R1 = R(2);
+R2 = R(3);
 
-E = R2 - R1
-N = floor(E * 0.7)
+E = R2 - R1;
+N = floor(E * 0.7);
 
 data = ecg_n1.ecg(R1+Fs1/20:N+R1);
 
@@ -717,7 +716,7 @@ tt=t1.*t2;
 indx=find(tt<0);
 
 plot(indx+idM-2, p(indx),'+g');
-N = length(data)
+N = length(data);
 
 gd = 6;
 
@@ -732,13 +731,13 @@ subplot 411
     plot((0:999), ecg_n1.ecg(1:1000));
 hold on
 
-N = floor(E * 0.7)
+N = floor(E * 0.7);
 data = ecg_n1.ecg(N+R1:R2-Fs1/20);
 
     plot((N-1+R1):(R2-1-Fs1/20), data, 'r');
     subplot 412
     plot((0:length(data)-1), data);
-y = filter(B_g1, A_g1, data)
+y = filter(B_g1, A_g1, data);
 y = y(9:end);
     subplot 413
     plot((0:length(y)-1),y);
@@ -757,7 +756,7 @@ t1=p(1:end-1);
 t2=p(2:end);
 tt=t1.*t2;
 indx=find(tt<0);
-gd = 5;
+gd = 6;
 
 figure(2);
 plot((0:length(data)-1),data);
@@ -776,13 +775,16 @@ Fs1 = ecg_n1.Fs;
 Fs2 = ecg_n2.Fs;
 Fs3 = ecg_n3.Fs;
 
-s = 50; % S seconds of samples
+s = 5; % S seconds of samples
+ratio = 40;
+ratio_d = 1/12; % Fs * ratio_deviation : maximum deviation in point, to detect Q and S from R
+
 
 % ECG 1
 subplot 311
 N = Fs1 * s;
 
-[ P, Q, R, S, T ] = PQRST(ecg_n1.ecg(1:N), Fs1);
+[ P, Q, R, S, T ] = PQRST(2, ecg_n1.ecg(1:N), Fs1, ratio, ratio_d);
 
 plot((0:N-1)/Fs1, ecg_n1.ecg(1:N));
 hold on;
@@ -805,7 +807,7 @@ text(T(1)/Fs1,ecg_n1.ecg(T(1))*1.5,'T');
 subplot 312
 N = Fs2 * s;
 
-[ P, Q, R, S, T ] = PQRST(ecg_n2.ecg(1:N), Fs2);
+[ P, Q, R, S, T ] = PQRST(2, ecg_n2.ecg(1:N), Fs2, ratio, ratio_d);
 
 plot((0:N-1)/Fs2, ecg_n2.ecg(1:N));
 hold on;
@@ -829,7 +831,7 @@ subplot 313
 N = Fs3 * s;
 offset = Fs3 * 2;
 
-[ P, Q, R, S, T ] = PQRST(ecg_n3.ecg(1+offset:N+offset), Fs3);
+[ P, Q, R, S, T ] = PQRST(2, ecg_n3.ecg(1+offset:N+offset), Fs3, ratio, ratio_d);
 
 plot((0+offset:N-1+offset)/Fs3, ecg_n3.ecg(1+offset:N+offset));
 hold on;
@@ -868,51 +870,356 @@ Fs_VF = ecg_VF.Fs;
 Fs_SSS = ecg_SSS.Fs;
 Fs_PVC = ecg_PVC.Fs;
 
-N = 20 * Fs1;
-CardiacRhythm(ecg_n3.ecg(1:N), Fs3)
-
-% [ T1, B1 ] = FindPathologies(ecg_n1.ecg(1:N), Fs1)
-% [ T2, B2 ] = FindPathologies(ecg_n2.ecg(1:N), Fs1)
-% [ T3, B3 ] = FindPathologies(ecg_n3.ecg(1:N), Fs1)
-% 
-% [ T_AF, B_AF ] = FindPathologies(ecg_AF.ecg(1:N), Fs1)
-% [ T_VF, B_VF ] = FindPathologies(ecg_VF.ecg(1:N), Fs1)
-% [ T_SSS, B_SSS ] = FindPathologies(ecg_SSS.ecg(1:N), Fs1)
-% [ T_PVC, B_PCV ] = FindPathologies(ecg_PVC.ecg(1:N), Fs1)
-
-
 ratio = 40;
 ratio_d = 1/12; % Fs * ratio_deviation : maximum deviation in point, to detect Q and S from R
-% Q R S
-N = 10 * Fs1;
-[ Q, R, S ] = QRS(ecg_n1.ecg(1:N), ratio, ratio_d, Fs1);
+s = 15;
+
+% ECG normal 1
+figure(1);
+N = s * Fs1;
+[ ~, R, ~] = QRS(2, ecg_n1.ecg(1:N), Fs1, ratio, ratio_d);
 N = length(R) - 1;
 Ds = diff(R);
 Dbpm = (60 * Fs1) * Ds.^-1;
 subplot 211
-plot((0:N-1), Ds, '+-');
+plot((R(1:N)/R(N)*s), Ds/Fs1, '+-');
+xlabel('Time (s)'); ylabel('seconds');
+title('Cardiac rhythm of ECG normal 1');
 subplot 212
-plot((0:N-1), Dbpm, '+r-');
+plot((R(1:N)/R(N)*s), Dbpm, '+r-');
+xlabel('Time (s)'); ylabel('beats/minute');
+title('Cardiac rhythm of ECG normal 1');
+ylim([0 100]);
 
-figure(2)s
-% Q R S
-N = 10 * Fs_SSS;
-[ Q, R, S ] = QRS(ecg_SSS.ecg(1:N), 45, ratio_d, Fs_SSS);
-N = length(R) - 1;w
+% ECG normal 2
+figure(2);
+N = s * Fs2;
+[ ~, R, ~] = QRS(2, ecg_n2.ecg(1:N), Fs2, ratio, ratio_d);
+N = length(R) - 1;
+Ds = diff(R);
+Dbpm = (60 * Fs2) * Ds.^-1;
+subplot 211
+plot(R(1:N)/R(N)*s, Ds/Fs2, '+-');
+xlabel('Time (s)'); ylabel('seconds');
+title('Cardiac rhythm of ECG normal 2');
+subplot 212
+plot((R(1:N)/R(N)*s), Dbpm, '+r-');
+xlabel('Time (s)'); ylabel('beats/minute');
+title('Cardiac rhythm of ECG normal 2');
+ylim([0 100]);
+
+% ECG with VF
+figure(3)
+N = s * Fs_VF;
+[ ~, R, ~] = QRS(2, ecg_VF.ecg(1:N), Fs_VF, 45, ratio_d);
+N = length(R) - 1;
+Ds = diff(R);
+Dbpm = (60 * Fs_VF) * Ds.^-1;
+subplot 211
+plot((R(1:N)/R(N)*s), Ds/Fs_VF, '+-');
+xlabel('Time (s)'); ylabel('seconds');
+title('Cardiac rhythm of ECG with VF');
+subplot 212
+plot((R(1:N)/R(N)*s), Dbpm, '+r-');
+xlabel('Time (s)'); ylabel('beats/minute');
+title('Cardac rhythm of ECG with VF');
+ylim([0 100]);
+
+% ECG with SSS
+figure(4)
+N = s * Fs_SSS;
+[ ~, R, ~] = QRS(2, ecg_SSS.ecg(1:N), Fs_SSS, 45, ratio_d);
+N = length(R) - 1;
 Ds = diff(R);
 Dbpm = (60 * Fs_SSS) * Ds.^-1;
 subplot 211
-plot((0:N-1), Ds, '+-');
+plot((R(1:N)/R(N)*s), Ds/Fs_VF, '+-');
+xlabel('Time (s)'); ylabel('seconds');
+title('Cardiac rhythm of ECG with SSS');
 subplot 212
-plot((0:N-1), Dbpm, '+r-');
+plot((R(1:N)/R(N)*s), Dbpm, '+r-');
+xlabel('Time (s)'); ylabel('beats/minute');
+title('Cardiac rhythm of ECG with SSS');
+ylim([0 100]);
+
+clear A B N Q R S ratio ratio_d s Ds Dbpm;
+%% 5.2 Geart rate variability
+
+s = 22;
+ratio = 40;
+ratio_d = 1/12;
+
+N = s * Fs1;
+
+HRV(ecg_n1.ecg(1:N), Fs1, ratio, ratio_d)
+%%
+
+    [Q, R, S] = QRS(2, ecg_n1.ecg(1:Fs1*s), Fs1, ratio, ratio_d);
+    
+    dr = diff(R);
+    
+    % Standard deviation
+    StdDev = sqrt( (sum(( dr - mean(dr) ).^2)) / length(dr) )
+    
+    % Histogram of occurences
+    figure(1)
+    hist(dr);
+    %%
+    % Display of process v(t)
+    N = length(dr)
+    v = [];
+    dr = diff(R);
+    for i=1:N-1
+        
+        for j=R(i):R(i+1)
+            t = dr(i) + ( (dr(i+1)-dr(i) ) .* (R(i+1) - R(i)).^-1 ) * (j-R(i));
+            v = [ v t ];
+        end
+    end
+    
+    v2 = dr(1:N-1) + ( (dr(2:N) - dr(1:N-1)) .* ([2:N] - [1:N-1]).^-1);
+    figure(2);
+    plot(v);
+    
+    figure(3)
+    plot(v2)
+%%
+    figure (4)
+    subplot 211
+    plot(((0:N-1)/N-0.5)*Fs1, fftshift(abs(fft(v,N))));
+    subplot 212
+    plot(((0:N-1)/N-0.5)*Fs1, fftshift(abs(fft(v2,N))));
+
+    length(dr)
+%%
 
 
+%% 5.3 Ectopic beat
+s = 18;
+ratio = 40;
+
+N = Fs_PVC * s;
+[pks,R] = DerivMeth(ecg_PVC.ecg(1:N), ratio, Fs_PVC);
+
+figure(1)
+subplot 211
+plot((0:N-1)/N*s, ecg_PVC.ecg(1:N));
+hold on
+
+% Le threshold ideal serait de l'ordre d'une variation max de 5 ou 10 bpm
+% une variation de 5 bpm <=> 13 ou 14 point
+% Mettons alors 15 points pour essayer
+
+dr = diff(R);
+ddr = abs(diff(dr));
+subplot 212
+plot(R(3:end)/R(end)*s,ddr)
+hold on
+threshold = 15;
+ectopic = find(ddr > threshold);
+delay = 2;
+plot(R(ectopic+delay)/R(end)*s, ddr(ectopic), '+r');
+
+subplot 211
+plot((R(ectopic(1)+delay):R(ectopic(1)+delay+1))/N*s, ecg_PVC.ecg(R(ectopic(1)+delay):R(ectopic(1)+delay+1)), 'r');
+plot((R(ectopic(2)+delay):R(ectopic(2)+delay+1))/N*s, ecg_PVC.ecg(R(ectopic(2)+delay):R(ectopic(2)+delay+1)), 'r');
 
 
+%% 5.4 Fibrillation
+
+% Autocovariance
+[~,R] = DerivMeth(ecg_PVC.ecg(1:10*Fs1), 40, Fs1);
+
+gamma = [];
+dr = diff(R);
+drm = mean(dr);
+s = 0;
+N = length(dr);
+for k=1:N-2
+    for n=1:(N-k-1)
+       s = s + ( (dr(n+k) - drm).*(dr(n) - drm) );
+    end
+   gamma = [ gamma (1/(N-k-1) * s) ];
+end
+
+subplot 211
+plot(gamma)
+title('Autocovariance of ECG normal 1 signal');
+
+[~,R] = DerivMeth(ecg_AF.ecg(1:10*Fs_AF), 40, Fs_AF);
+
+gamma = [];
+dr = diff(R);
+drm = mean(dr);
+s = 0;
+N = length(dr);
+for k=1:N-2
+    for n=1:(N-k-1)
+       s = s + ( (dr(n+k) - drm).*(dr(n) - drm) );
+    end
+   gamma = [ gamma (1/(N-k-1) * s) ];
+end
+
+subplot 212
+plot(gamma)
+title('Autocovariance of ECG with AF');
+
+%%
+s = 4;
+N = Fs_AF * s;
+ratio = 40;
+ratio_d = 1/12;
+
+[ P, Q, R, S, T ] = PQRST(2, ecg_AF.ecg(1:N), Fs_AF, ratio, ratio_d);
+
+plot((0:N-1)/Fs_AF, ecg_AF.ecg(1:N));
+hold on;
+plot((P-1)/Fs_AF, ecg_AF.ecg(P),'+y');
+plot((Q-1)/Fs_AF, ecg_AF.ecg(Q),'+g');
+plot((R-1)/Fs_AF, ecg_AF.ecg(R),'+r');
+plot((S-1)/Fs_AF, ecg_AF.ecg(S),'+k');
+plot((T-1)/Fs_AF, ecg_AF.ecg(T),'+r');
+
+title('Time evolution of normal ECG signal (1)');
+xlabel('Time (s)');
+ylabel('Amplitude');
+%text(P(1)/Fs_AF, ecg_AF.ecg(P(1))*5,'P');
+text(Q(1)/Fs_AF-0.03, ecg_AF.ecg(Q(1))*1.1,'Q');
+text(R(1)/Fs_AF+0.05, ecg_AF.ecg(R(1)),'R');
+text(S(1)/Fs_AF, ecg_AF.ecg(S(1))*1.1,'S');
+text(T(1)/Fs_AF, ecg_AF.ecg(T(1))*1.5,'T');
+
+P
+
+%% Ventricular fibrilation
 
 
+%% 6 ECG denoising
+clear all;
+ecg_PL_file = load('ecg/ecg_noisePL.mat');
+
+Fs = ecg_PL_file.Fs;
+
+s = 4;
+N = s * Fs;
+
+ecg = ecg_PL_file.ecg(1:N);
 
 
+subplot 211
+plot((0:N-1)/Fs, ecg);
+title('Time evolution of ECG signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+
+N = 1000000;
+subplot 212
+plot(((0:N-1)/N-0.5)*Fs, fftshift(abs(fft(ecg, N)).^2));
+ylim([0 1000000]);
+title('Spectrum of ECG signal filtered');
+xlabel('Frequency (Hz)');
+ylabel('Amplitude');
+
+% on remarque qu'il y a un sinus de f = 50Hz
+
+%% Filter
+[b, a] = butter(2, 0.02, 'low');
+y = filter(b, a, ecg);
+N = s * Fs;
+
+subplot 221
+plot((0:N-1)/Fs, ecg);
+title('Time evolution of ECG signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+
+subplot 222
+plot((0:N-1)/Fs, y);
+title('Time evolution of ECG sgnal filtered');
+xlabel('Time (s)');
+ylabel('Amplitude');
+
+N = 10^6;
+
+subplot 223
+plot(((0:N-1)/N-0.5)*Fs, fftshift(abs(fft(ecg, N)).^2));
+ylim([0 1000000]);
+title('Spectrum of ECG signal');
+xlabel('Frequency (Hz)');
+ylabel('Amplitude');
+
+subplot 224
+plot(((0:N-1)/N-0.5)*Fs, fftshift(abs(fft(y, N)).^2));
+ylim([0 1000000]);
+title('Spectrum of ECG signal filtered');
+xlabel('Frequency (Hz)');
+ylabel('Amplitude');
+
+%% noiseBL
+clear all;
+ecg_BL_file = load('ecg/ecg_noiseBL.mat');
+
+Fs = ecg_BL_file.Fs;
+
+s = 4;
+N = s * Fs;
+
+ecg = ecg_BL_file.ecg(1:N);
+
+
+subplot 211
+plot((0:N-1)/Fs, ecg);
+title('Time evolution of ECG signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+
+N = 1000000;
+subplot 212
+plot(((0:N-1)/N-0.5)*Fs, fftshift(abs(fft(ecg, N)).^2));
+ylim([0 1000000]);
+title('Spectrum of ECG signal filtered');
+xlabel('Frequency (Hz)');
+ylabel('Amplitude');
+
+%% Filter
+[b, a] = cheby1(2, 0.1, 0.01, 'high');
+
+y = filter(b, a, ecg);
+
+N = s * Fs;
+
+subplot 221
+plot((0:N-1)/Fs, ecg);
+title('Time evolution of ECG signal');
+xlabel('Time (s)');
+ylabel('Amplitude');
+
+subplot 222
+plot((0:N-1)/Fs, y);
+title('Time evolution of ECG sgnal filtered');
+xlabel('Time (s)');
+ylabel('Amplitude');
+
+N = 10^6;
+
+subplot 223
+plot(((0:N-1)/N-0.5)*Fs, fftshift(abs(fft(ecg, N)).^2));
+ylim([0 1000000]);
+title('Spectrum of ECG signal');
+xlabel('Frequency (Hz)');
+ylabel('Amplitude');
+
+subplot 224
+plot(((0:N-1)/N-0.5)*Fs, fftshift(abs(fft(y, N)).^2));
+ylim([0 1000000]);
+title('Spectrum of ECG signal filtered');
+xlabel('Frequency (Hz)');
+ylabel('Amplitude');
+
+
+%% 7 Graphical interface
+
+% See GUI.m and GUI.fig
 
 
 

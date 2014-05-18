@@ -2,7 +2,7 @@ function [peaks, location] = FindPeaks(ecg, ratio, Fs)
 
     max_peak = max(ecg);
     threshold = max_peak * ratio/100;
-    
+
     D = [ecg; 1:length(ecg)]; % ecg data with # of samples
     select = D(1,:) >= threshold; % all data under threshold go to zero
     D(:,select==0) = []; % we remove the zeros
@@ -20,6 +20,11 @@ function [peaks, location] = FindPeaks(ecg, ratio, Fs)
             d = j1 + 1; % set d for the next peak
         end
     end
-    peaks = R(1,:);
-    location = R(2,:);
+    if(size(R) ~= [0,0])
+        peaks = R(1,:);
+        location = R(2,:);
+    else
+        peaks = [];
+        location = [];
+    end
 end
