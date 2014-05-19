@@ -197,6 +197,8 @@ else
    set(handles.text_is_AF, 'String','No');
 end
 
+update_respiratory_bpm(handles);
+
 guidata(findobj('Tag', 'figure1'), handles);
 
 
@@ -254,6 +256,42 @@ if(~isempty(handles.ecg_raw))
     end
 end
 
+function update_respiratory_bpm(handles)
+R = handles.R;
+if(length(R) >= 3)
+    Fs = handles.ecg_Fs;
+
+    dr = diff(R);
+
+    N = length(dr);
+    v = [];
+    for i=1:N-1
+
+        for j=R(i):R(i+1)
+            v = [ v (dr(i) + ( (dr(i+1)-dr(i) ) .* (R(i+1) - R(i)).^-1 ) * (j-R(i))) ];
+        end
+    end
+    N2 = 10^5;
+    sp = fftshift(abs(fft((v-mean(v)),N2)));
+    half = sp((N2/2+1):end);
+    % N/2 -> Fs/2 Hz
+    % X -> 0.4Hz
+    % X = N/2 * 0.4 / (Fs/2)
+    data = half(1:((N2/2) * 0.4 / (Fs/2)));
+    d = diff(data);
+    dd = diff(d);
+    t1=d(1:end-1);
+    t2=d(2:end);
+    tt=t1.*t2;
+    indx=find(tt<0);
+    indx(dd(indx) > 0) = [];
+    if(length(indx) >= 4)
+        f = indx(4) * 60 * Fs / N2;
+        set(handles.txt_respiratory_rhythm, 'String', f);
+    else
+        set(handles.txt_respiratory_rhythm, 'String', '- -');
+    end
+end
 
 % --- Executes during object creation, after setting all properties.
 function display_panel_CreateFcn(hObject, eventdata, handles)
@@ -537,6 +575,8 @@ if ~isequal(filename, 0)
     
     set(handles.slider_offset, 'Value', 0);
     set(handles.slider_offset_freq, 'Value', 0);
+    
+    set(handles.text_Fs, 'String', sprintf('%s%d', 'Fs : ', handles.ecg_Fs));
 end
 
 
@@ -675,7 +715,8 @@ function lp_button_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of lp_button
 
-update_plot_time(handles)
+update_plot_time(handles);
+update_plot_freq(handles);
 
 
 % --- Executes on button press in hp_button.
@@ -686,7 +727,8 @@ function hp_button_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of hp_button
 
-update_plot_time(handles)
+update_plot_time(handles);
+update_plot_freq(handles);
 
 % --- Executes on slider movement.
 function slider_lp_Callback(hObject, eventdata, handles)
@@ -696,8 +738,12 @@ function slider_lp_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-
-update_plot_time(handles)
+if(get(handles.lp_button, 'Value') == 1)
+    update_plot_time(handles);
+    update_plot_freq(handles);
+end
+f = (get(handles.slider_lp, 'Value')^2) * handles.ecg_Fs / 2;
+set(handles.text_cp_lp, 'String', sprintf('%5.2f%s', f, ' Hz')); 
 
 
 % --- Executes during object creation, after setting all properties.
@@ -720,8 +766,12 @@ function slider_hp_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-
-update_plot_time(handles)
+if(get(handles.hp_button, 'Value') == 1)
+    update_plot_time(handles);
+    update_plot_freq(handles);
+end
+f = (get(handles.slider_hp, 'Value')^2) * handles.ecg_Fs / 2;
+set(handles.text_cp_hp, 'String', sprintf('%5.2f%s', f, ' Hz')); 
 
 
 % --- Executes during object creation, after setting all properties.
@@ -744,8 +794,10 @@ function slider_Rdb_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-
-update_plot_time(handles)
+if(get(handles.hp_button, 'Value') == 1)
+    update_plot_time(handles);
+    update_plot_freq(handles);
+end
 
 
 % --- Executes during object creation, after setting all properties.
