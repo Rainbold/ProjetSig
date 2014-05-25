@@ -161,6 +161,7 @@
 		Just as before, the results match those computed in the time domain.
 
 
+
 \chapter{Detection of P, QRS and T waves}
 	\section{Three different methods of R waves detection}
 		The purpose of this section is to implement and compare three different methods in order to detect the R waves.
@@ -187,6 +188,17 @@
 	Now that the P, Q, R, S and T waves detection was achieved, it can be put to a practical use. Indeed, in the following part, different pathologies identification methods will be studied and implemented.
 	\section{Tachycardia/Bradycardia}
 		The cardiac rhythm has been defined as the time between two R waves. Tachycardia (respectively bradycardia) is declared when the former is over 100 bpm (respectively under 60 bpm).\\
+		A simple method was used to compute the cardiac rhythm. At first, 4 seconds of the given ECG are isolated, the R waves are then detected and the time between them computed. All these times are summed and then divided by the number of R-R intervals to obtain an average time between the different R waves. The cardiac rhythm is finally computed based on the previous result. \\
+		Identifying basic arrhythmia pathologies now boils down to a simple comparison between the cardiac rhythm and the threshold defining these pathologies (60 bpm and 100 bpm in this case).\\
+		\\
+		It was suggested to use the entire ECG to compute the cardiac rhythm, but it is a pretty clumsy approach. Indeed, the heartbeat can vary greatly, especially for ill people. It seemed more logical to use small samples temporally speaking, to have a more representative quantification of the cardiac rhythm.\\
+		It also unveils the main problem of the sample mean method. We cannot precisely estimate the cardiac rhythm, because it is subject to change throughout the ECG signal. It is only an average value and the solution would be, as it was done above, to use samples temporally restricted and compute the rhythm on a given window.
+		I can also be noted that this method is highly dependent on the R waves detection. Thus, the latter must be as precise as possible.
+	\section{Heart rate variability}
+		
+
+
+		
 \chapter{ECG denoising}
 
 
