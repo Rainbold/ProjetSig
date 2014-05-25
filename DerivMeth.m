@@ -8,6 +8,7 @@ function [peaks, location] = DerivMeth(ecg, ratio, Fs)
 
 %debuging :
 %     figure(9);
+%     
 %     plot(ecg_d);
 %     hold on;
 %     plot(locsM, pksM,'+r');
