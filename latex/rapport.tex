@@ -165,17 +165,28 @@
 	\section{Three different methods of R waves detection}
 		The purpose of this section is to implement and compare three different methods in order to detect the R waves.
 		\subsection{Method of local maxima}
-			This method is rather straightforward. \\
-			First of all, to work on a restricted number of sample, a window is set. The signal is then cubed to make the R waves stand out.\\
+			This method is rather straightforward. A window is set to work on a restricted number of samples. The signal is then cubed to make the R waves stand out.\\
 			A threshold $r$ is chosen to only select the peaks corresponding to the R waves. $r$ is a variable equal to a certain percentage of the maximum value contained in the ECG signals.\\
-			When the peaks are picked, the local maxima of the latter is selected and the corresponding time taken out. Finally, the R points are plotted on the original ECG at the previously found positions.
+			When the peaks are picked, the local maxima of the latter is selected and the corresponding times taken out. Finally, the R points are plotted on the original ECG at the previously found positions.
 		\subsection{Method of the derivative}
+			The derived ECG signals presents peaks with a local maxima followed by a local minima. Using the previous method, these different peaks are located with their beginning and ending times. The latter is transposed to the original ECG signals to get the different R waves domains. The R points correspond to the local maximum in each given domain.
 		\subsection{Pan and Tompkins algorithm}
+			As opposed to the previous methods, the Pan and Tompkins algorithm consists of different steps.\\
+			First, the ECG is signal is filtered by a band-pass filter, which is composed of a low pass-filter and a high pass-filter.\\
+			The resulting signal is filtered by a derivative signal to gain information about the QRS slope and then squared to make the local maxima stand out.\\
+			Then, the signal is integrated with a moving-window method. The width of the said window is N which is the empirically-determined duration of a QRS complex.\\
+			Finally, a threshold is applied on the integrated signal. Thanks to this step, the temporal location of the QRS complex can be extracted from the rising slope in the latter.
+	\section{Q and S waves detection}
+		Based on the R waves' location, it is now possible to detect the Q and S waves. They are respectively defined as the first minima preceding and following the R waves.\\
+		This definition is unfortunately too plain to be effective. If the signal happens to be a tad noisy, another minimum could be detected between the R wave and the actual Q or S wave. 
+	\section{P and T waves detection}
 
 
 
 \chapter{Automatic identification of cardiac pathologies}
-
+	Now that the P, Q, R, S and T waves detection was achieved, it can be put to a practical use. Indeed, in the following part, different pathologies identification methods will be studied and implemented.
+	\section{Tachycardia/Bradycardia}
+		The cardiac rhythm has been defined as the time between two R waves. Tachycardia (respectively bradycardia) is declared when the former is over 100 bpm (respectively under 60 bpm).\\
 \chapter{ECG denoising}
 
 

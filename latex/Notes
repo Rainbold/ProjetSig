@@ -38,3 +38,19 @@ Notes:
 			2. R = 57,6 bpm
 			3. R = 82,8 bpm
 			4. R = 72 bpm
+
+	4.1.1
+		Pan and Tompkins
+			Filtre passe bas
+				Freq de coupure -3dB : x=0.2929 y=-3.078 (freq normalisée) f=x*fs/2
+				Group delay : 12
+
+			Filtre passe-haut
+				Freq de coupure -3dB : x=0.0337
+				Group delay : 32
+
+			Filtre dérivateur
+				Freq de coupure -3dB : x=0.9365
+				Group delay : 4 en non causal
+
+
