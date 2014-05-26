@@ -1,5 +1,12 @@
 function [ P, Q, R, S, T ] = PQRST( method, ecg, Fs, ratio, ratio_d )
    
+    % Because noiseBL ecg data is in line and not in column like everyelse
+    % signals, we have to do this test.
+    s = size(ecg);
+    if(s(1) ~= 1)
+       ecg = (ecg)'; 
+    end
+
     % Q R S
     [ Q, R, S ] = QRS(method, ecg, Fs, ratio, ratio_d);
 

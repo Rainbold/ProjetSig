@@ -277,7 +277,7 @@ if(length(R) >= 3)
     % N/2 -> Fs/2 Hz
     % X -> 0.4Hz
     % X = N/2 * 0.4 / (Fs/2)
-    data = half(1:((N2/2) * 0.4 / (Fs/2)));
+    data = half(1:floor((N2/2) * 0.4 / (Fs/2)));
     d = diff(data);
     dd = diff(d);
     t1=d(1:end-1);

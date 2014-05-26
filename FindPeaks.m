@@ -3,6 +3,13 @@ function [peaks, location] = FindPeaks(ecg, ratio, Fs)
     max_peak = max(ecg);
     threshold = max_peak * ratio/100;
 
+    % Because noiseBL ecg data is in line and not in column like everyelse
+    % signals, we have to do this test.
+    s = size(ecg);
+    if(s(1) ~= 1)
+       ecg = (ecg)'; 
+    end
+    
     D = [ecg; 1:length(ecg)]; % ecg data with # of samples
     select = D(1,:) >= threshold; % all data under threshold go to zero
     D(:,select==0) = []; % we remove the zeros
