@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.4.28)  25 MAY 2014 20:24
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2014.4.28)  26 MAY 2014 02:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -7,20 +7,19 @@ entering extended mode
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
 aded.
-(/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
-Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
 File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
-\c@chapter=\count80
-\c@section=\count81
-\c@subsection=\count82
-\c@subsubsection=\count83
-\c@paragraph=\count84
-\c@subparagraph=\count85
-\c@figure=\count86
-\c@table=\count87
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
@@ -43,9 +42,9 @@ Package ifvtex Info: VTeX not detected.
 (/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count88
-\Gm@cntv=\count89
-\c@Gm@tempcnt=\count90
+\Gm@cnth=\count87
+\Gm@cntv=\count88
+\c@Gm@tempcnt=\count89
 \Gm@bindingoffset=\dimen103
 \Gm@wd@mp=\dimen104
 \Gm@odd@mp=\dimen105
@@ -58,37 +57,37 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/layout.sty
 Package: layout 2000/09/25 v1.2c Show layout parameters
-\oneinch=\count91
-\cnt@paperwidth=\count92
-\cnt@paperheight=\count93
-\cnt@hoffset=\count94
-\cnt@voffset=\count95
-\cnt@textheight=\count96
-\cnt@textwidth=\count97
-\cnt@topmargin=\count98
-\cnt@oddsidemargin=\count99
-\cnt@evensidemargin=\count100
-\cnt@headheight=\count101
-\cnt@headsep=\count102
-\cnt@marginparsep=\count103
-\cnt@marginparwidth=\count104
-\cnt@marginparpush=\count105
-\cnt@footskip=\count106
-\fheight=\count107
-\ref@top=\count108
-\ref@hoffset=\count109
-\ref@voffset=\count110
-\ref@head=\count111
-\ref@body=\count112
-\ref@foot=\count113
-\ref@margin=\count114
-\ref@marginwidth=\count115
-\ref@marginpar=\count116
-\Interval=\count117
-\ExtraYPos=\count118
-\PositionX=\count119
-\PositionY=\count120
-\ArrowLength=\count121
+\oneinch=\count90
+\cnt@paperwidth=\count91
+\cnt@paperheight=\count92
+\cnt@hoffset=\count93
+\cnt@voffset=\count94
+\cnt@textheight=\count95
+\cnt@textwidth=\count96
+\cnt@topmargin=\count97
+\cnt@oddsidemargin=\count98
+\cnt@evensidemargin=\count99
+\cnt@headheight=\count100
+\cnt@headsep=\count101
+\cnt@marginparsep=\count102
+\cnt@marginparwidth=\count103
+\cnt@marginparpush=\count104
+\cnt@footskip=\count105
+\fheight=\count106
+\ref@top=\count107
+\ref@hoffset=\count108
+\ref@voffset=\count109
+\ref@head=\count110
+\ref@body=\count111
+\ref@foot=\count112
+\ref@margin=\count113
+\ref@marginwidth=\count114
+\ref@marginpar=\count115
+\Interval=\count116
+\ExtraYPos=\count117
+\PositionX=\count118
+\PositionY=\count119
+\ArrowLength=\count120
 )
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/ucs.sty
 Package: ucs 2004/10/17 UCS: Unicode input support
@@ -96,7 +95,7 @@ Package: ucs 2004/10/17 UCS: Unicode input support
 (/usr/share/texlive/texmf-dist/tex/latex/ucs/data/uni-global.def
 File: uni-global.def 2012/04/20 UCS: Unicode global data
 )
-\uc@secondtry=\count122
+\uc@secondtry=\count121
 \uc@combtoks=\toks16
 \uc@combtoksb=\toks17
 \uc@temptokena=\toks18
@@ -144,7 +143,7 @@ Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
-\Gread@gobject=\count123
+\Gread@gobject=\count122
 ))
 \Gin@req@height=\dimen116
 \Gin@req@width=\dimen117
@@ -180,13 +179,13 @@ Package: amsbsy 1999/11/29 v1.2d
 (/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
-\inf@bad=\count124
+\inf@bad=\count123
 LaTeX Info: Redefining \frac on input line 211.
-\uproot@=\count125
-\leftroot@=\count126
+\uproot@=\count124
+\leftroot@=\count125
 LaTeX Info: Redefining \overline on input line 307.
-\classnum@=\count127
-\DOTSCASE@=\count128
+\classnum@=\count126
+\DOTSCASE@=\count127
 LaTeX Info: Redefining \ldots on input line 379.
 LaTeX Info: Redefining \dots on input line 382.
 LaTeX Info: Redefining \cdots on input line 467.
@@ -195,15 +194,15 @@ LaTeX Info: Redefining \cdots on input line 467.
 \big@size=\dimen120
 LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
-\macc@depth=\count129
-\c@MaxMatrixCols=\count130
+\macc@depth=\count128
+\c@MaxMatrixCols=\count129
 \dotsspace@=\muskip10
-\c@parentequation=\count131
-\dspbrk@lvl=\count132
+\c@parentequation=\count130
+\dspbrk@lvl=\count131
 \tag@help=\toks24
-\row@=\count133
-\column@=\count134
-\maxfields@=\count135
+\row@=\count132
+\column@=\count133
+\maxfields@=\count134
 \andhelp@=\toks25
 \eqnshift@=\dimen121
 \alignsep@=\dimen122
@@ -223,7 +222,7 @@ Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
 )
 (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count136
+\c@float@type=\count135
 \float@exts=\toks28
 \float@box=\box29
 \@float@everytoks=\toks29
@@ -241,13 +240,13 @@ Package: caption3 2012/01/12 v1.4b caption3 kernel (AR)
 \caption@parindent=\dimen131
 \caption@hangindent=\dimen132
 )
-\c@ContinuedFloat=\count137
+\c@ContinuedFloat=\count136
 Package caption Info: float package is loaded.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
 Package: subcaption 2012/01/12 v1.1d Sub-captions (AR)
-\c@subfigure=\count138
-\c@subtable=\count139
+\c@subfigure=\count137
+\c@subtable=\count138
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
 Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
@@ -311,16 +310,16 @@ File: ucsencs.def 2011/01/21 Fixes to fontencodings LGR, T3
 )
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count140
+\scratchcounter=\count139
 \scratchdimen=\dimen135
 \scratchbox=\box31
-\nofMPsegments=\count141
-\nofMParguments=\count142
+\nofMPsegments=\count140
+\nofMParguments=\count141
 \everyMPshowfont=\toks31
-\MPscratchCnt=\count143
+\MPscratchCnt=\count142
 \MPscratchDim=\dimen136
-\MPnumerator=\count144
-\makeMPintoPDFobject=\count145
+\MPnumerator=\count143
+\makeMPintoPDFobject=\count144
 \everyMPtoPDFconversion=\toks32
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
@@ -368,149 +367,142 @@ e
 ))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for U+msa on input line 27.
+LaTeX Font Info:    Try loading font information for U+msa on input line 26.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 27.
+LaTeX Font Info:    Try loading font information for U+msb on input line 26.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
-) [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./rapport.toc)
+) (./rapport.toc)
 \tf@toc=\write3
 \openout3 = `rapport.toc'.
 
- [1
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 36--38
+[1
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 36--38
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Underfull \hbox (badness 10000) in paragraph at lines 32--34
 
  []
 
-[2]
-Chapter 1.
-<images/Q311_1.png, id=17, 562.58456pt x 495.2987pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 32--34
+
+ []
+
+<images/Q311_1.png, id=11, 562.58456pt x 495.2987pt>
 File: images/Q311_1.png Graphic file (type png)
  <use images/Q311_1.png>
-Package pdftex.def Info: images/Q311_1.png used on input line 47.
+Package pdftex.def Info: images/Q311_1.png used on input line 43.
 (pdftex.def)             Requested size: 365.67563pt x 321.94034pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--59
+Underfull \hbox (badness 10000) in paragraph at lines 48--55
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--59
+Underfull \hbox (badness 10000) in paragraph at lines 48--55
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 52--59
+Underfull \hbox (badness 10000) in paragraph at lines 48--55
 
  []
 
-[3
-
- <./images/Q311_1.png>] <images/Q312_2.png, id=23, 560.0925pt x 495.92172pt>
+[2 <./images/Q311_1.png>] <images/Q312_2.png, id=17, 560.0925pt x 495.92172pt>
 File: images/Q312_2.png Graphic file (type png)
 
 <use images/Q312_2.png>
-Package pdftex.def Info: images/Q312_2.png used on input line 77.
+Package pdftex.def Info: images/Q312_2.png used on input line 73.
 (pdftex.def)             Requested size: 364.0558pt x 322.3453pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 72--84
+Underfull \hbox (badness 10000) in paragraph at lines 68--80
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 72--84
+Underfull \hbox (badness 10000) in paragraph at lines 68--80
 
  []
 
-[4 <./images/Q312_2.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 99--103
+
+Underfull \hbox (badness 10000) in paragraph at lines 95--99
 
  []
 
-<images/Q321.png, id=28, 418.66759pt x 412.43741pt>
+<images/Q321.png, id=18, 418.66759pt x 412.43741pt>
 File: images/Q321.png Graphic file (type png)
  <use images/Q321.png>
-Package pdftex.def Info: images/Q321.png used on input line 109.
+Package pdftex.def Info: images/Q321.png used on input line 105.
 (pdftex.def)             Requested size: 272.1307pt x 268.08113pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--116
+Underfull \hbox (badness 10000) in paragraph at lines 101--112
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 105--116
+Underfull \hbox (badness 10000) in paragraph at lines 101--112
 
  []
 
-[5 <./images/Q321.png (PNG copy)>]
-<images/Q322.png, id=37, 644.19983pt x 405.58423pt>
+[3] <images/Q322.png, id=27, 644.19983pt x 405.58423pt>
 File: images/Q322.png Graphic file (type png)
  <use images/Q322.png>
-Package pdftex.def Info: images/Q322.png used on input line 135.
+Package pdftex.def Info: images/Q322.png used on input line 131.
 (pdftex.def)             Requested size: 418.72493pt x 263.62662pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--146
+Underfull \hbox (badness 10000) in paragraph at lines 125--142
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--146
+Underfull \hbox (badness 10000) in paragraph at lines 125--142
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--146
+Underfull \hbox (badness 10000) in paragraph at lines 125--142
 
  []
 
-[6 <./images/Q322.png (PNG copy)>]
-Chapter 2.
-[7
+[4 <./images/Q312_2.png>] [5 <./images/Q321.png (PNG copy)>] [6 <./images/Q322.
+png (PNG copy)>]
+Underfull \hbox (badness 10000) in paragraph at lines 189--196
 
-] [8]
-Chapter 3.
-[9
+ []
 
-]
-Chapter 4.
-[10
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 218--221
 
-] [11] (./rapport.aux) ) 
+ []
+
+[8] (./rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 4662 strings out of 495059
- 68540 string characters out of 3182030
- 144710 words of memory out of 3000000
- 7759 multiletter control sequences out of 15000+200000
- 12871 words of font info for 48 fonts, out of 3000000 for 9000
+ 4644 strings out of 495059
+ 68335 string characters out of 3182030
+ 147152 words of memory out of 3000000
+ 7741 multiletter control sequences out of 15000+200000
+ 11659 words of font info for 44 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  38i,7n,38p,486b,282s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on rapport.pdf (12 pages, 185528 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+bx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/symbols/msbm10.pfb>
+Output written on rapport.pdf (8 pages, 191602 bytes).
 PDF statistics:
- 90 PDF objects out of 1000 (max. 8388607)
- 59 compressed objects within 1 object stream
+ 78 PDF objects out of 1000 (max. 8388607)
+ 51 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

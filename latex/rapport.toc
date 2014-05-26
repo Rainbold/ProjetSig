@@ -1,14 +1,19 @@
-\contentsline {chapter}{\numberline {1}ECG visualization}{3}
-\contentsline {section}{\numberline {1.1}Time display}{3}
-\contentsline {section}{\numberline {1.2}Frequency display}{5}
-\contentsline {chapter}{\numberline {2}Detection of P, QRS and T waves}{7}
-\contentsline {section}{\numberline {2.1}Three different methods of R waves detection}{7}
-\contentsline {subsection}{\numberline {2.1.1}Method of local maxima}{7}
-\contentsline {subsection}{\numberline {2.1.2}Method of the derivative}{7}
-\contentsline {subsection}{\numberline {2.1.3}Pan and Tompkins algorithm}{7}
-\contentsline {section}{\numberline {2.2}Q and S waves detection}{7}
-\contentsline {section}{\numberline {2.3}P and T waves detection}{8}
-\contentsline {chapter}{\numberline {3}Automatic identification of cardiac pathologies}{9}
-\contentsline {section}{\numberline {3.1}Tachycardia/Bradycardia}{9}
-\contentsline {section}{\numberline {3.2}Heart rate variability}{9}
-\contentsline {chapter}{\numberline {4}ECG denoising}{10}
+\contentsline {section}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {2}ECG visualization}{2}
+\contentsline {subsection}{\numberline {2.1}Time display}{2}
+\contentsline {subsection}{\numberline {2.2}Frequency display}{3}
+\contentsline {section}{\numberline {3}Detection of P, QRS and T waves}{5}
+\contentsline {subsection}{\numberline {3.1}Three different methods of R waves detection}{5}
+\contentsline {subsubsection}{\numberline {3.1.1}Method of local maxima}{5}
+\contentsline {subsubsection}{\numberline {3.1.2}Method of the derivative}{5}
+\contentsline {subsubsection}{\numberline {3.1.3}Pan and Tompkins algorithm}{6}
+\contentsline {subsection}{\numberline {3.2}Q and S waves detection}{6}
+\contentsline {subsection}{\numberline {3.3}P and T waves detection}{7}
+\contentsline {section}{\numberline {4}Automatic identification of cardiac pathologies}{7}
+\contentsline {subsection}{\numberline {4.1}Tachycardia/Bradycardia}{7}
+\contentsline {subsection}{\numberline {4.2}Heart rate variability}{7}
+\contentsline {subsection}{\numberline {4.3}Ectopic beat}{7}
+\contentsline {subsection}{\numberline {4.4}Atrial Fibrillation}{7}
+\contentsline {subsection}{\numberline {4.5}Ventricular Fibrillation}{8}
+\contentsline {section}{\numberline {5}ECG denoising}{8}
+\contentsline {section}{\numberline {6}Conclusion}{8}

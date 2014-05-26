@@ -1,4 +1,4 @@
-\documentclass[11pt]{report}
+\documentclass[11pt]{article}
 
 \usepackage[left=0.75in, right=0.75in, top=0.75in, bottom=0.75in]{geometry}
 \usepackage{layout}
@@ -23,25 +23,21 @@
 
 \begin{document}
 
-
 \maketitle
-
 \tableofcontents
 
 \newpage
-\vspace{1in}
-\vspace{1in}
-\section*{\Huge{Introduction}}
-	\vspace{0.5in}
-	The heart has always been an acurate indicator of one's health. Analyzing it and monitoring its activity is of utmost importance for clinicians. Thus this project's aim is to develop an automatic and user-friendly application capable of giving useful information about the heart activity, such as the cardiac rhythm or the detection of heart conditions, based on an electrocardiogram signal.\\\\
+
+\section{Introduction}
+	The heart has always been an accurate indicator of one's health. Analyzing it and monitoring its activity is of utmost importance for clinicians. Thus this project's aim is to develop an automatic and user-friendly application capable of giving useful information about the heart activity, such as the cardiac rhythm or the detection of heart conditions, based on an electrocardiogram signal.\\\\
 	The project is divided in multiple parts. First, different ECG signals (from both ill and healthy people) were displayed and analysed under MATLAB to highlight their characteristics. Followed by the automated detection of the latter, as well as the identification of cardiac pathologies and the ECG signals denoising. Finally, the ultimate product is delivered with a Graphical User Interface (GUI) making it possible to the clinicians to use it easily and intuitively.\\
 
 
-\chapter{ECG visualization}
+\section{ECG visualization}
 	In this first part, seven different ECG signals will be analyzed and displayed under MATLAB. \\Three of these are records from healthy patient's heart, whereas the other four are from ill ones, each with different pathologies.\\
 	This part's aim is to study these signals in the frequency and time domain, starting by the latter, and underline the different caracteristics and properties of these.
 
-	\section{Time display}
+	\subsection{Time display}
 		\begin{figure}[ht]
 			\centering
 			\includegraphics[scale=0.65]{images/Q311_1.png}
@@ -101,7 +97,7 @@
 		The Sick Sinus Syndrome has a different effect on the signal, for it creates groups of P waves and R/S points with an absence of activity in between.\\
 		The Premature Ventricular Contraction pathology is the closest match, out of the four signals, to a typical one. But, as the pathology's name suggest, the P waves are ahead compared to a normal signal.\\
 
-	\section{Frequency display}
+	\subsection{Frequency display}
 		At first, the ECG power spectrum of the normal ECG signals. $N$ samples were used, with $N = 15 \cdot F_s$.\\
 		\\
 		\begin{figure}[ht]
@@ -162,31 +158,34 @@
 
 
 
-\chapter{Detection of P, QRS and T waves}
-	\section{Three different methods of R waves detection}
+\section{Detection of P, QRS and T waves}
+	\subsection{Three different methods of R waves detection}
 		The purpose of this section is to implement and compare three different methods in order to detect the R waves.
-		\subsection{Method of local maxima}
+		\subsubsection{Method of local maxima}
 			This method is rather straightforward. A window is set to work on a restricted number of samples. The signal is then cubed to make the R waves stand out.\\
 			A threshold $r$ is chosen to only select the peaks corresponding to the R waves. $r$ is a variable equal to a certain percentage of the maximum value contained in the ECG signals.\\
-			When the peaks are picked, the local maxima of the latter is selected and the corresponding times taken out. Finally, the R points are plotted on the original ECG at the previously found positions.
-		\subsection{Method of the derivative}
-			The derived ECG signals presents peaks with a local maxima followed by a local minima. Using the previous method, these different peaks are located with their beginning and ending times. The latter is transposed to the original ECG signals to get the different R waves domains. The R points correspond to the local maximum in each given domain.
-		\subsection{Pan and Tompkins algorithm}
+			When the peaks are picked, the local maxima of the latter is selected and the corresponding times taken out. Finally, the R points are plotted on the original ECG at the previously found positions.\\
+			This method is pretty successful in general, however, if the different R waves' amplitude vary greatly, detection errors might occur. It is the same for P and T waves with a high amplitude.
+		\subsubsection{Method of the derivative}
+			The derived ECG signals presents peaks with a local maxima followed by a local minima. Using the previous method, these different peaks are located with their beginning and ending times. The latter is transposed to the original ECG signals to get the different R waves domains. The R points correspond to the local maximum in each given domain.\\
+			On the one hand, Compared to the previous method, this one can successfully detect R waves with different amplitudes. On the other hand, there's globally more mistakes and issues with this method than the other, especially on certain ECG signals.
+		\subsubsection{Pan and Tompkins algorithm}
 			As opposed to the previous methods, the Pan and Tompkins algorithm consists of different steps.\\
 			First, the ECG is signal is filtered by a band-pass filter, which is composed of a low pass-filter and a high pass-filter.\\
 			The resulting signal is filtered by a derivative signal to gain information about the QRS slope and then squared to make the local maxima stand out.\\
 			Then, the signal is integrated with a moving-window method. The width of the said window is N which is the empirically-determined duration of a QRS complex.\\
 			Finally, a threshold is applied on the integrated signal. Thanks to this step, the temporal location of the QRS complex can be extracted from the rising slope in the latter.
-	\section{Q and S waves detection}
+			This method is the most efficient of them all, it can almost always detect the R waves perfectly. Although, errors might occur on some specific ECG, these could originate from the signal integration.
+	\subsection{Q and S waves detection}
 		Based on the R waves' location, it is now possible to detect the Q and S waves. They are respectively defined as the first minima preceding and following the R waves.\\
-		This definition is unfortunately too plain to be effective. If the signal happens to be a tad noisy, another minimum could be detected between the R wave and the actual Q or S wave. 
-	\section{P and T waves detection}
+		This definition is unfortunately too plain to be effective. If the signal happens to be a tad noisy, another minimum could be detected between the R wave and the actual Q or S wave. A solution could be the addition of thresholding step to make sure that the amplitude between the R wave and the eventual Q or S waves is higher than a given level.
+	\subsection{P and T waves detection}
+		
 
 
-
-\chapter{Automatic identification of cardiac pathologies}
+\section{Automatic identification of cardiac pathologies}
 	Now that the P, Q, R, S and T waves detection was achieved, it can be put to a practical use. Indeed, in the following part, different pathologies identification methods will be studied and implemented.
-	\section{Tachycardia/Bradycardia}
+	\subsection{Tachycardia/Bradycardia}
 		The cardiac rhythm has been defined as the time between two R waves. Tachycardia (respectively bradycardia) is declared when the former is over 100 bpm (respectively under 60 bpm).\\
 		A simple method was used to compute the cardiac rhythm. At first, 4 seconds of the given ECG are isolated, the R waves are then detected and the time between them computed. All these times are summed and then divided by the number of R-R intervals to obtain an average time between the different R waves. The cardiac rhythm is finally computed based on the previous result. \\
 		Identifying basic arrhythmia pathologies now boils down to a simple comparison between the cardiac rhythm and the threshold defining these pathologies (60 bpm and 100 bpm in this case).\\
@@ -194,15 +193,30 @@
 		It was suggested to use the entire ECG to compute the cardiac rhythm, but it is a pretty clumsy approach. Indeed, the heartbeat can vary greatly, especially for ill people. It seemed more logical to use small samples temporally speaking, to have a more representative quantification of the cardiac rhythm.\\
 		It also unveils the main problem of the sample mean method. We cannot precisely estimate the cardiac rhythm, because it is subject to change throughout the ECG signal. It is only an average value and the solution would be, as it was done above, to use samples temporally restricted and compute the rhythm on a given window.
 		I can also be noted that this method is highly dependent on the R waves detection. Thus, the latter must be as precise as possible.
-	\section{Heart rate variability}
+	\subsection{Heart rate variability}
+		The heart rate variability $v$ can be used to detect pathologies such as myocardial dysfunction and it is the linear interpolation between two subsequent R-R intervals' value.\\
+		The power spectrum of $v$ actually needs an awful lot of samples to be representative and the resulting spectrum is still tainted by a cardinal sine.\\
+		For an adult, the respiratory rhythm is usually ranging between 12 and 20 cycles per minute. It corresponds respectively to a frequency of 0.2 Hz and 0.33 Hz. Therefore, the respiratory oscillations can be detected in the high frequency band.
+	\subsection{Ectopic beat}
+		A heartbeat is said to be ectopic if, at a given time, the next R waves occurs earlier than expected and is followed by a longer R-R interval until the next normal beat.\\
+		A threshold $\epsilon$ equal to 5 bpm is used to detect these premature beats. The results are excellent if the R waves detection is spot-on.
+	\subsection{Atrial Fibrillation}
+		During atrial fibrillation, the P waves are absent. This pathology can be easily detected if the latter is not detected.
+	\subsection{Ventricular Fibrillation}
+		Ventricular fibrillations are basically a sine wave with fast oscillations : about 200 bpm to 600 bpm.\\
+		Based on this definition two approaches were used. The first one consisted in computing the cardiac rhythm, but in order to detect the pathology, the peaks detection needed to be perfect which was not the case.\\
+		The other possible method was a spectral approach. The fast heartbeat component can be found and isolated in the power spectrum of the ECG signal.
+
 		
+\section{ECG denoising}
+	Baseline wander, power line interference or muscle activities can be the cause of the noises tainting the ECG signals. To prevent the loss of useful information, the signal must filtered upfront. \\
+	This section is aimed at getting rid of the baseline as well as the 50 Hz power line interferences polluting the ECG signals.\\
+	On the power spectrum, the power line component appears distinctly (a peak when $f=50 Hz$) and can be taken care of using a low-pass filter. The temporal results are satisfying since the signal appears to be cleaned off.\\
+	Electrodes malfunction can cause baseline wandering, where the signal seems to be moving up and down. A high-pass filter can be used to get rid of the effect and, based on the post-filtering results, in a successful manner.
 
-
-		
-\chapter{ECG denoising}
-
-
-\newpage
-\section*{Conclusion}
+\section{Conclusion}
+	This project and its practical application to the medical field highlighted the importance and the main concepts behind numeric signal processing. ECG analysis is compulsory to establish a diagnosis, therefore it is of utmost importance to easily and rapidly have access to the principal data that can be extracted from these ECG, especially when every second is a matter of life and death.\\
+	Thus, based on different ECG signals and the extrapolation of their data, we were able to create an automatic detection of different cardiac pathologies and display he most important information into a user-friendly Graphical User Interface (GUI).\\
+	At last, this assignment gave us a better understanding of what an ECG is and how to process it as well as technical knowledge on numeric signal processing while using Matlab.\\
 
 \end{document}
