@@ -40,12 +40,12 @@
 	\subsection{Time display}
 		\begin{figure}[ht]
 			\centering
-			\includegraphics[scale=0.65]{images/Q311_1.png}
+			\includegraphics[scale=0.65]{images/Q311.png}
 			\caption{Normal ECG signals with the Q, R, S points and P, T waves highlighted}
-			\label{Q311_1}
+			\label{Q311}
 		\end{figure}
 
-		First, three seconds of each of the aforementioned normal ECG signals (i.e. from healthy heart) were plotted under MATLAB. On the figure above (Figure~\ref{Q311_1}), their Q, R and S points are represented by red dots, while their P and T waves are located by green dots.  \\
+		First, three seconds of each of the aforementioned normal ECG signals (i.e. from healthy heart) were plotted under MATLAB. On the figure above (Figure~\ref{Q311}), their Q, R and S points are represented by red dots, while their P and T waves are located by green dots.  \\
 		\\
 		The first signal displayed is noisier than the two others, although, its characteristic points and waves are easier to observe.\\
 		The second signal is uncluttered, but the S point is hardly recognizable.\\
@@ -70,9 +70,9 @@
 		\\
 		\begin{figure}[ht]
 			\centering
-			\includegraphics[scale=0.65]{images/Q312_2.png}
+			\includegraphics[scale=0.65]{images/Q312.png}
 			\caption{ECG signals with pathologies with the Q, R, S points and P, T waves highlighted}
-			\label{Q312_2}
+			\label{Q312}
 		\end{figure}
 		\\
 		Then, the last four ECG signals associated with heart conditions were plotted under MATLAB.\\
@@ -93,7 +93,7 @@
 			\end{tabular}
 		\end{center}
 		These pathologies have an impact on each ECG signals and useful characteristics are lost.\\
-		Compared to the normal signals, the Atrial Fibrillation's ECG signals lack P waves and has weak impulsions. In the same way, for the Ventricular Fibrillation, the signal depicts a slow heartbeat and hardly discernible P waves, as well as Q and S points.\\
+		Compared to the normal signals, the Atrial Fibrillation's ECG signals lack P waves and has weak impulsions. In the same way, for the Ventricular Fibrillation, the signal depicts a fast heartbeat and hardly discernible P, Q, R, S and T waves.\\
 		The Sick Sinus Syndrome has a different effect on the signal, for it creates groups of P waves and R/S points with an absence of activity in between.\\
 		The Premature Ventricular Contraction pathology is the closest match, out of the four signals, to a typical one. But, as the pathology's name suggest, the P waves are ahead compared to a normal signal.\\
 
@@ -165,17 +165,17 @@
 			This method is rather straightforward. A window is set to work on a restricted number of samples. The signal is then cubed to make the R waves stand out.\\
 			A threshold $r$ is chosen to only select the peaks corresponding to the R waves. $r$ is a variable equal to a certain percentage of the maximum value contained in the ECG signals.\\
 			When the peaks are picked, the local maxima of the latter is selected and the corresponding times taken out. Finally, the R points are plotted on the original ECG at the previously found positions.\\
-			This method is pretty successful in general, however, if the different R waves' amplitude vary greatly, detection errors might occur. It is the same for P and T waves with a high amplitude.
+			This method is pretty successful in general, however, if the different R waves' amplitude vary greatly, or if the amplitude of P and T waves amplitude are as high as R waves,  detection errors might occur.
 		\subsubsection{Method of the derivative}
 			The derived ECG signals presents peaks with a local maxima followed by a local minima. Using the previous method, these different peaks are located with their beginning and ending times. The latter is transposed to the original ECG signals to get the different R waves domains. The R points correspond to the local maximum in each given domain.\\
-			On the one hand, Compared to the previous method, this one can successfully detect R waves with different amplitudes. On the other hand, there's globally more mistakes and issues with this method than the other, especially on certain ECG signals.
+			On the one hand, compared to the previous method, this one can successfully detect R waves with different amplitudes. On the other hand, there's globally more mistakes and issues with this method than the other, especially on certain ECG signals with high variations.
 		\subsubsection{Pan and Tompkins algorithm}
 			As opposed to the previous methods, the Pan and Tompkins algorithm consists of different steps.\\
 			First, the ECG is signal is filtered by a band-pass filter, which is composed of a low pass-filter and a high pass-filter.\\
 			The resulting signal is filtered by a derivative signal to gain information about the QRS slope and then squared to make the local maxima stand out.\\
 			Then, the signal is integrated with a moving-window method. The width of the said window is N which is the empirically-determined duration of a QRS complex.\\
 			Finally, a threshold is applied on the integrated signal. Thanks to this step, the temporal location of the QRS complex can be extracted from the rising slope in the latter.
-			This method is the most efficient of them all, it can almost always detect the R waves perfectly. Although, errors might occur on some specific ECG, these could originate from the signal integration.
+			This method is the most efficient of them all, it can almost always detect the R waves perfectly. Although, errors might occur on some specific ECG, these could originate from the signal integration with the detection of the rising slope.
 	\subsection{Q and S waves detection}
 		Based on the R waves' location, it is now possible to detect the Q and S waves. They are respectively defined as the first minima preceding and following the R waves.\\
 		This definition is unfortunately too plain to be effective. If the signal happens to be a tad noisy, another minimum could be detected between the R wave and the actual Q or S wave. A solution could be the addition of thresholding step to make sure that the amplitude between the R wave and the eventual Q or S waves is higher than a given level.
