@@ -16,4 +16,5 @@
 \contentsline {subsection}{\numberline {4.4}Atrial Fibrillation}{9}
 \contentsline {subsection}{\numberline {4.5}Ventricular Fibrillation}{9}
 \contentsline {section}{\numberline {5}ECG denoising}{10}
-\contentsline {section}{\numberline {6}Conclusion}{10}
+\contentsline {section}{\numberline {6}Graphical User Interface}{10}
+\contentsline {section}{\numberline {7}Conclusion}{10}
