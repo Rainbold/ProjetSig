@@ -1187,15 +1187,17 @@ sp_ecg = abs(fft(ecg));
 sp_ecg(1) = 0;
 sp_ecg = fftshift(sp_ecg);
 plot(((0:N-1)/N-0.5)*Fs, sp_ecg);
+% xlim([-50,50]);
 
 N = length(sp_ecg);
 sp = sp_ecg(floor(N/2):end);
 id_max_sp = find(sp == max(sp))
+id_max_sp * Fs / N
 title('Power spectrum of normal ECG signal (2)');
 xlabel('Frequency (Hz)');
 ylabel('Amplitude');
 
-rhythm = id_max_sp * Fs / N * 60
+
 
 %% 6 ECG denoising
 clear all;
@@ -1219,11 +1221,11 @@ N = 1000000;
 subplot 212
 plot(((0:N-1)/N-0.5)*Fs, fftshift(abs(fft(ecg, N)).^2));
 ylim([0 1000000]);
-title('Spectrum of ECG signal');
+title('Spectrum of ECG signal filtered');
 xlabel('Frequency (Hz)');
 ylabel('Amplitude');
 
-% sinus f = 50Hz
+% on remarque qu'il y a un sinus de f = 50Hz
 
 %% Filter
 [b, a] = butter(2, 0.02, 'low');
@@ -1280,7 +1282,7 @@ N = 1000000;
 subplot 212
 plot(((0:N-1)/N-0.5)*Fs, fftshift(abs(fft(ecg, N)).^2));
 ylim([0 1000000]);
-title('Spectrum of ECG signal');
+title('Spectrum of ECG signal filtered');
 xlabel('Frequency (Hz)');
 ylabel('Amplitude');
 
@@ -1323,7 +1325,7 @@ ylabel('Amplitude');
 %% 7 Graphical interface
 
 % See GUI.m and GUI.fig
-% enter GUI to start the GUI
+
 
 
 

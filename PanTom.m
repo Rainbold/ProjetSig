@@ -38,39 +38,78 @@ function [ R ] = PanTom( ecg, Fs, ratio )
         t = (1/N2) * sum(y3((n-N2+1):n));
         Smwi = [ Smwi t ];
     end
-    
-    max_s = max(Smwi); % Maximum of integrated ECG
 
-    [pks, maxima] = FindPeaks(Smwi, ratio, Fs);
+   % Real method
+%   max_s = max(Smwi); % Maximum of integrated ECG
+
+%    [pks, maxima] = FindPeaks(Smwi, ratio, Fs);
 
     % Detection of the beginin of each peaks
-    low_threshold = 0.05 * max_s;
-    data = Smwi;
-    data(data > low_threshold) = 0;
-    ds = diff(data);
+%     low_threshold = 0.05 * max_s;
+%     data = Smwi;
+%     data(data > low_threshold) = 0;
+%     ds = diff(data);
+% 
+%     [pks2, minima] = FindPeaks(ds, 10, Fs);
+% 
+%     minima = minima(1:2:end);
+%     pks2 = pks2(1:2:end);
+% 
+%     % Detection of R peaks
+%     x = [minima maxima]; % groups the minmas/maximas
+%     x = sort(x); % and sort them
+% 
+%     R=[];
+%     if(numel(x) ~= 0) % Protection useful for the GUI
+%         if(x(1) ~= minima(1)) % in case of the first data is not a minima
+%             I=2:2:(length(x)-1);
+%         else
+%            I=1:2:(length(x)-1); % used to get every couple maxima-minima
+%         end
+% 
+%         delay = N2/2;
+% 
+%         for i=I
+%             y = [ ecg(x(i)+delay:x(i+1)+delay); x(i)+delay:x(i+1)+delay ]; % store in y the ecg data of the peak and their #
+%             [maxi, id] = max(y, [], 2); % get the peak and his location with their #
+%             R = [ R [maxi(1); y(2,id(1))] ]; % store the results
+%         end
+%     end
+%     if(size(R) ~= [0,0])
+%         R = R(2,:);
+%     else
+%         R = [];
+%     end
 
-    [pks2, minima] = FindPeaks(ds, 10, Fs);
 
-    minima = minima(1:2:end);
-    pks2 = pks2(1:2:end);
+% But this method works better
+    threshold = 4 * 10^11 * 2 * (ratio/100);
 
-    % Detection of R peaks
-    x = [minima maxima]; % groups the minmas/maximas
+    t = Smwi .* (Smwi >= threshold);
+    dt = diff(t);
+    D = [dt; 1:length(dt)];
+    select = D(1,:) >= threshold;
+    D(:,select==0) = [];
+
+    E = [-1*dt; 1:length(dt)];
+    select = E(1,:) >= threshold;
+    E(:,select==0) = [];
+    E(1,:) = -1* E(1,:);
+
+    x = [D(2,:) E(2,:)]; % groups the locations
     x = sort(x); % and sort them
 
     R=[];
-    if(numel(x) ~= 0) % Protection useful for the GUI
-        if(x(1) ~= minima(1)) % in case of the first data is not a minima
+    if(numel(x) ~= 0)
+        if(dt(x(1)) < 0) % in case of the first data is not a maxima
             I=2:2:(length(x)-1);
         else
-           I=1:2:(length(x)-1); % used to get every couple maxima-minima
+            I=1:2:(length(x)-1);
         end
-
-        delay = N2/2;
-
+ 
         for i=I
-            y = [ ecg(x(i)+delay:x(i+1)+delay); x(i)+delay:x(i+1)+delay ]; % store in y the ecg data of the peak and their #
-            [maxi, id] = max(y, [], 2); % get the peak and his location with their #
+            y = [ ecg(x(i):x(i+1)); x(i):x(i+1) ]; % store in y the ecg data of the peak
+            [maxi, id] = max(y, [], 2); % and get the peak and his location
             R = [ R [maxi(1); y(2,id(1))] ]; % store the results
         end
     end

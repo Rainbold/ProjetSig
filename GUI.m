@@ -186,8 +186,10 @@ else
    set(handles.text_is_ectopic, 'String','No');
 end
 
+[ AF, VF ] = AFVF(handles.ecg_data, handles.R, handles.ecg_Fs);
+
 % AF
-if(length(P) < (1/10) * length(R))
+if((length(P) < (1/10) * length(R)) || AF)
    set(handles.text_AF, 'ForegroundColor',[1 0 0]);
    set(handles.text_is_AF, 'ForegroundColor',[1 0 0]);
    set(handles.text_is_AF, 'String','Yes');
@@ -195,6 +197,17 @@ else
    set(handles.text_AF, 'ForegroundColor',[0 0.5 0]); 
    set(handles.text_is_AF, 'ForegroundColor',[0 0.5 0]);
    set(handles.text_is_AF, 'String','No');
+end
+
+% VF
+if(VF)
+   set(handles.text_VF, 'ForegroundColor',[1 0 0]);
+   set(handles.text_is_VF, 'ForegroundColor',[1 0 0]);
+   set(handles.text_is_VF, 'String','Yes');
+else
+   set(handles.text_VF, 'ForegroundColor',[0 0.5 0]); 
+   set(handles.text_is_VF, 'ForegroundColor',[0 0.5 0]);
+   set(handles.text_is_VF, 'String','No');
 end
 
 update_respiratory_bpm(handles);
