@@ -661,7 +661,7 @@ ylabel('Amplitude');
 text(Q(1)/Fs3,ecg_n3.ecg(Q(1))*1.1,'Q'), text(R(1)/Fs3,ecg_n3.ecg(R(1))*1.03,'R'), text(S(1)/Fs3,ecg_n3.ecg(S(1))*1.1,'S')
 
 %% 4.2 P and T waves detection
-%% 4.2.1 Filter
+%% 4.2.1 Filters
 clear all;
 ecg_n1 = load('ecg/ecg_normal_1.mat');
 Fs1 = ecg_n1.Fs;
@@ -689,6 +689,7 @@ ratio = 40;
 
 [~,R] = DerivMeth(ecg_n1.ecg(1:N), ratio, Fs1);
 
+% We take 2 R as an interval
 R1 = R(1);
 R2 = R(2);
 
@@ -727,13 +728,13 @@ figure(1);
 
 subplot 212
 plot((N1+delay:N1+delay+length(y1)-1)/Fs1,y1);
-hold on
+hold on;
 title('Time evolution of a normal ECG signal');
 xlabel('Time (s)'); ylabel('Amplitude');
 
-d = [y1, 1:length(y1)];
-[M, idM] = max(d, [], 2);
-[m, idm] = min(d, [], 2);
+d = [y1];
+[M, idM] = max(d);
+[m, idm] = min(d);
 plot((N1+delay+idM-1)/Fs1, M, 'r+');
 plot((N1+delay+idm-1)/Fs1, m, 'r+');
 
@@ -762,44 +763,62 @@ title('Time evolution of a normal ECG signal');
 legend('ECG signal','T waves');
 xlabel('Time (s)'); ylabel('Amplitude');
 %% P wave
-
 figure(1);
-subplot 411
-    plot((0:999), ecg_n1.ecg(1:1000));
+
+data = ecg_n1.ecg((R1+N2):(R2-(Fs1/20)));
+
+y = filter(B_g2, A_g2, data);
+y = y(7:end);
+y1 = filter(B_g1, A_g1, y);
+y1 = y1(9:end);
+
+delay = (9+7)/2;
+
+subplot 313
+plot((((R1+N2+7):R2-7-(Fs1/20))-1)/Fs1,y1);
 hold on
+title('Time evolution of a normal ECG signal');
+xlabel('Time (s)'); ylabel('Amplitude');
 
-N = floor(E * 0.7);
-data = ecg_n1.ecg(N+R1:R2-Fs1/20);
-
-    plot((N-1+R1):(R2-1-Fs1/20), data, 'r');
-    subplot 412
-    plot((0:length(data)-1), data);
-y = filter(B_g1, A_g1, data);
-y = y(9:end);
-    subplot 413
-    plot((0:length(y)-1),y);
-y1 = filter(B_g2, A_g2, y);
-y1 = y1(7:end);
-    subplot 414
-    plot((0:(length(y1)-1)),y1);
-d = [y1, 1:length(y1)];
+d = [y1; ((R1+N2+7):R2-7-(Fs1/20))];
 [M, idM] = max(d, [], 2);
 [m, idm] = min(d, [], 2);
-p = y1(idM:idm);
-    subplot 414
+plot((d(2,idM(1))-1)/Fs1, M(1), 'r+');
+plot((d(2,idm(1))-1)/Fs1, m(1), 'r+');
+
+p = y1(idM(1):idm(1));
+
+plot(((d(2,idM(1)):d(2,idm(1)))-1)/Fs1,p, 'r');
+title('Time evolution of a normal ECG signal filtered #1 (y1)');
+xlabel('Time (s)'); ylabel('Amplitude');
 
 %find zero crossings
 t1=p(1:end-1);
 t2=p(2:end);
 tt=t1.*t2;
 indx=find(tt<0);
+indx = indx(1);
+
+plot(((d(2,idM(1)))+indx-2)/Fs1, p(indx),'+g');
+N = length(data);
+
 gd = 6;
 
-figure(2);
-plot((0:length(data)-1),data);
+subplot 311
+plot(((R1+N2):(R1+N2+N)-1)/Fs1,data);
 hold on
-plot(indx+idM +gd -1, data(indx+idM+gd), '+g');
+plot((R1+N2+indx+gd-1)/Fs1, data(indx+gd), '+g');
+title('Time evolution of a normal ECG signal');
+legend('ECG signal','T waves');
+xlabel('Time (s)'); ylabel('Amplitude');
 
+subplot 312
+plot(((R1+N2):(R1+N2+length(y))-1)/Fs1,y);
+hold on
+plot((R1+N2+indx+gd-1)/Fs1,y(indx+gd), '+g');
+title('Time evolution of the EG signal #1 filtered (y)');
+legend('ECG signal','T waves');
+xlabel('Time (s)'); ylabel('Amplitude');
 
 %% PQRST display of the 3 normal ECG signals
 clear all;
@@ -1018,9 +1037,8 @@ plot(bpm/60, sp(N/2 +1+ (bpm*N)/(60*Fs)), '+r');
 
 % Respiratory rhythm
 bpm
-%%
 
-bpm = Respiratory_rhythm(R, Fs)
+%bpm = Respiratory_rhythm(R, Fs)
 
 %% 5.3 Ectopic beat
 s = 18;
@@ -1081,11 +1099,15 @@ end
 
 subplot 211
 plot(R(1:length(gamma)), gamma, 'r');
-hold on
-plot(ecg_data);
 title('Autocovariance of ECG normal 1 signal');
+subplot 212
+plot(ecg_data);
+title('ECG signal #1');
+hold on
 plot(R,ecg_data(R), '+r');
-%%
+xlabel('Samples'); ylabel('Amplitude');
+legend('ECG', 'R waves');
+
 % Autocovariance : ECG with AF
 figure
 N = sec * Fs_AF;
@@ -1106,15 +1128,17 @@ end
 
 subplot 211
 plot(R(1:length(gamma)), gamma, 'r');
+title('Autocovariance of ECG normal 1 signal');
 
 subplot 212
 plot(ecg_data);
-title('Autocovariance of ECG normal 1 signal');
 hold on
 plot(R,ecg_data(R), '+r');
+xlabel('Samples'); ylabel('Amplitude');
+legend('ECG', 'R waves');
 
 
-%%
+%% No P with AF
 s = 4;
 N = Fs_AF * s;
 ratio = 40;
@@ -1142,7 +1166,36 @@ text(T(1)/Fs_AF, ecg_AF.ecg(T(1))*1.5,'T');
 P
 
 %% Ventricular fibrilation
+clear all; close all;
 
+ecg_VF = load('ecg/ecg_VF.mat');
+Fs = ecg_VF.Fs;
+
+D = 225 * Fs;
+F = 235 * Fs;
+ecg = ecg_VF.ecg(D:F);
+
+subplot 211
+plot(((D:F)-1)/Fs, ecg);
+title('Time evolution of an ECG with VF');
+xlabel('Time (s)');
+ylabel('Amplitude');
+
+subplot 212
+N = length(ecg);
+sp_ecg = abs(fft(ecg));
+sp_ecg(1) = 0;
+sp_ecg = fftshift(sp_ecg);
+plot(((0:N-1)/N-0.5)*Fs, sp_ecg);
+
+N = length(sp_ecg);
+sp = sp_ecg(floor(N/2):end);
+id_max_sp = find(sp == max(sp))
+title('Power spectrum of normal ECG signal (2)');
+xlabel('Frequency (Hz)');
+ylabel('Amplitude');
+
+rhythm = id_max_sp * Fs / N * 60
 
 %% 6 ECG denoising
 clear all;
@@ -1166,11 +1219,11 @@ N = 1000000;
 subplot 212
 plot(((0:N-1)/N-0.5)*Fs, fftshift(abs(fft(ecg, N)).^2));
 ylim([0 1000000]);
-title('Spectrum of ECG signal filtered');
+title('Spectrum of ECG signal');
 xlabel('Frequency (Hz)');
 ylabel('Amplitude');
 
-% on remarque qu'il y a un sinus de f = 50Hz
+% sinus f = 50Hz
 
 %% Filter
 [b, a] = butter(2, 0.02, 'low');
@@ -1227,7 +1280,7 @@ N = 1000000;
 subplot 212
 plot(((0:N-1)/N-0.5)*Fs, fftshift(abs(fft(ecg, N)).^2));
 ylim([0 1000000]);
-title('Spectrum of ECG signal filtered');
+title('Spectrum of ECG signal');
 xlabel('Frequency (Hz)');
 ylabel('Amplitude');
 
@@ -1270,7 +1323,7 @@ ylabel('Amplitude');
 %% 7 Graphical interface
 
 % See GUI.m and GUI.fig
-
+% enter GUI to start the GUI
 
 
 
